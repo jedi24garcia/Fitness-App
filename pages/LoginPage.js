@@ -3,14 +3,17 @@ import { StyleSheet, Text, ImageBackground, TouchableOpacity, View, Alert, TextI
 import { SocialIcon } from 'react-native-elements';
 
 const EntryPage = () => {
-    const [text, setText] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [emailPlaceholder, setEmailPlaceholder] = React.useState('Type email address here');
+    const [passwordPlaceholder, setPasswordPlaceholder] = React.useState('Type password here');
     return (
         <View style={styles.container}>
             <ImageBackground source={require('../images/gym.jpg')} style={styles.image}>
             <Text style={styles.authenticate}>Email Address</Text>
-            <TextInput style={styles.input} placeholder="Type email address here" newText={newText => setText(newText)} defaultValue={text} />
+            <TextInput style={styles.input} placeholder={emailPlaceholder} value={email} onChangeText={newText => setEmail(newText)} onFocus={() => setEmailPlaceholder('')} onBlur={() => setEmailPlaceholder('Type email address here')} />
             <Text style={styles.authenticate}>Password</Text>
-            <TextInput style={styles.input} placeholder="Type password address here" newText={newText => setText(newText)} defaultValue={text} />
+            <TextInput style={styles.input} placeholder={passwordPlaceholder} value={password} onChangeText={newText => setPassword(newText)} onFocus={() => setPasswordPlaceholder('')} onBlur={() => setPasswordPlaceholder('Type password here')} secureTextEntry />
             <View style={styles.SignInButton}>
             <TouchableOpacity onPress={() => Alert.alert('Button Pressed')}>
                 <Text style={styles.SignInFont}>Login</Text>
