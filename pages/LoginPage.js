@@ -15,5 +15,5 @@ const styles = StyleSheet.create ({
     SignInFont: {
         color: '#F5F5F5',
         textAlign: 'center',
-    }
+    },
 })
