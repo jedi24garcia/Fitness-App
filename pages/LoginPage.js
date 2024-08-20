@@ -36,12 +36,12 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         flexDirection: 'column',
-        opacity: 0.7,
         backgroundColor: '#083236',
     },
     image: {
         resizeMode: 'cover',
         flex: 1,
+        opacity: 0.7,
         justifyContent: 'center',
     },
     input: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create ({
         padding: 10,  
     },
     authenticate: {
-        padding: 50,
+        padding: 10,
         textAlign: 'center',
         color: 'white',
     },
@@ -62,7 +62,7 @@ const styles = StyleSheet.create ({
         backgroundColor: '#00d3ff',
         borderRadius: 100,
         width: '70%',
-        marginBottom: 10,
+        marginBottom: 200,
         padding: 15,
         alignSelf: 'center',
     },
