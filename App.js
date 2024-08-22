@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
+import OpenPage from './pages/OpeningPage';
 import EntryPage from './pages/LoginPage';
 
 const Stack = createNativeStackNavigator()
@@ -9,7 +9,8 @@ const Stack = createNativeStackNavigator()
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Opening'>
+        <Stack.Screen name="Opening" component={OpenPage} />
         <Stack.Screen name="Home" component={EntryPage} />
       </Stack.Navigator>
     </NavigationContainer>
