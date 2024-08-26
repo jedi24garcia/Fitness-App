@@ -1,11 +1,27 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
 
-const SignUpPage = () => {
+import { DatabaseConnection } from '../database/Database';
+
+const db = DatabaseConnection.getConnection();
+const SignUpPage = ({ navigation }) => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
+
+    const add_user = () => {
+        db.transaction(function (tx) {
+            tx.executeSql(
+                "INSERT INTO table_user(user_name, user_address)VALUES(?, ?)",
+                [name, email, password, confirmPassword],
+                (tx, results) => {
+                    console.log("Successfully inserted data");
+                    navigation.navigate('Entry');
+                }
+            );
+        });
+    };
 
     return (
         <View style={styles.container}>
@@ -29,7 +45,7 @@ const SignUpPage = () => {
                 <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
             </View>
             <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Account Created')}>
+                <TouchableOpacity onPress={add_user}>
                 <Text style={styles.authenticate}>Create Account</Text>
                 </TouchableOpacity>
             </View>
