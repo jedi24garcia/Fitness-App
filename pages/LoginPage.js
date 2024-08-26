@@ -1,25 +1,12 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, ImageBackground, TouchableOpacity, View, Alert, TextInput } from 'react-native';
 import { SocialIcon } from 'react-native-elements';
-// import { DatabaseConnection } from '../database/Database';
 
 const EntryPage = ({ navigation }) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [emailPlaceholder, setEmailPlaceholder] = React.useState('Type email address here');
     const [passwordPlaceholder, setPasswordPlaceholder] = React.useState('Type password here');
-    // const db = DatabaseConnection.getConnection();
-
-//     useEffect(() => {
-//         db.transaction(function (tx) {
-//             tx.executeSql("CREATE TABLE IF NOT EXISTS table_user(user_id INTEGER PRIMARY KEY AUTOINCREMENT, user_name VARCHAR(20), user_address VARCHAR(255))",
-//                 [],
-//                 (tx, results) => {
-//                     console.log("Table created successfully");
-//                 }
-//             );
-//         });
-// }, []);
 
     return (
         <View style={styles.container}>
@@ -30,7 +17,7 @@ const EntryPage = ({ navigation }) => {
                     <Text style={styles.authenticate}>Password</Text>
                     <TextInput style={styles.input} placeholder={passwordPlaceholder} value={password} onChangeText={newText => setPassword(newText)} onFocus={() => setPasswordPlaceholder('')} onBlur={() => setPasswordPlaceholder('Type password here')} secureTextEntry />
                     <View style={styles.authenticateButton}>
-                        <TouchableOpacity onPress={() => Alert.alert('Button Pressed')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('First Page')}>
                             <Text style={styles.authenticateFont}>Login</Text>
                         </TouchableOpacity>
                     </View>
