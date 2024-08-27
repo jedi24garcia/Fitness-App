@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 
-const WeekDays = () => {
+const WeekDays = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Monday')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Monday')}>
                     <Text style={styles.authenticate}>Monday</Text>
                 </TouchableOpacity> 
             </View>
