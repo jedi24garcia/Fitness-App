@@ -29,6 +29,11 @@ const WeekDays = () => {
                     <Text style={styles.authenticate}>Friday</Text>
                 </TouchableOpacity> 
             </View>
+            <View style={styles.authenticateButton}>
+                <TouchableOpacity onPress={() => Alert.alert('Weekend')}>
+                    <Text style={styles.authenticate}>Weekend</Text>
+                </TouchableOpacity> 
+            </View>
         </View>
     );
 };
