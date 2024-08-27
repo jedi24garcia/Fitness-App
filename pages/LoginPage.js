@@ -17,7 +17,7 @@ const EntryPage = ({ navigation }) => {
                     <Text style={styles.authenticate}>Password</Text>
                     <TextInput style={styles.input} placeholder={passwordPlaceholder} value={password} onChangeText={newText => setPassword(newText)} onFocus={() => setPasswordPlaceholder('')} onBlur={() => setPasswordPlaceholder('Type password here')} secureTextEntry />
                     <View style={styles.authenticateButton}>
-                        <TouchableOpacity onPress={() => navigation.navigate('First Page')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Week')}>
                             <Text style={styles.authenticateFont}>Login</Text>
                         </TouchableOpacity>
                     </View>

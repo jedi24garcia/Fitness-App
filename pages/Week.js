@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 
-const FirstPage = () => {
+const WeekDays = () => {
     return (
         <View style={styles.container}>
             <View style={styles.authenticateButton}>
@@ -33,7 +33,7 @@ const FirstPage = () => {
     );
 };
 
-export default FirstPage;
+export default WeekDays;
 
 const styles = StyleSheet.create({
     container: {

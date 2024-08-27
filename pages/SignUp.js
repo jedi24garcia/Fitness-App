@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 
 import { DatabaseConnection } from '../database/Database';
 
@@ -25,30 +25,32 @@ const SignUpPage = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.signContent}>
-                <Text style={styles.SignUpFont}>Create Account</Text>
-            </View>
-            <View>
-                <Text style={styles.fonts}>Name</Text>
-                <TextInput style={styles.input} onChangeText={newText => setName(newText)} value={name} placeholder="Enter your name" placeholderTextcolor={"#aaa"} />
-            </View>
-            <View>
-                <Text style={styles.fonts}>Email</Text>
-                <TextInput style={styles.input} onChangeText={newText => setEmail(newText)} value={email} placeholder="Enter you email" placeholderTextColor={"#aaa"} keyboardType="emailaddress" autoCapitalize="none" />
-            </View>
-            <View>
-                <Text style={styles.fonts}>Password</Text>
-                <TextInput style={styles.input} onChangeText={newText => setPassword(newText)} value={password} placeholder="Enter your password" placeholderTextColor={"#aaa"} secureTextEntry />
-            </View>
-            <View>
-                <Text style={styles.fonts}>Confirm Password</Text>
-                <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
-            </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={add_user}>
-                <Text style={styles.authenticate}>Create Account</Text>
-                </TouchableOpacity>
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.signContent}>
+                    <Text style={styles.SignUpFont}>Create Account</Text>
+                </View>
+                <View>
+                    <Text style={styles.fonts}>Name</Text>
+                    <TextInput style={styles.input} onChangeText={newText => setName(newText)} value={name} placeholder="Enter your name" placeholderTextcolor={"#aaa"} />
+                </View>
+                <View>
+                    <Text style={styles.fonts}>Email</Text>
+                    <TextInput style={styles.input} onChangeText={newText => setEmail(newText)} value={email} placeholder="Enter you email" placeholderTextColor={"#aaa"} keyboardType="emailaddress" autoCapitalize="none" />
+                </View>
+                <View>
+                    <Text style={styles.fonts}>Password</Text>
+                    <TextInput style={styles.input} onChangeText={newText => setPassword(newText)} value={password} placeholder="Enter your password" placeholderTextColor={"#aaa"} secureTextEntry />
+                </View>
+                <View>
+                    <Text style={styles.fonts}>Confirm Password</Text>
+                    <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
+                </View>
+                <View style={styles.authenticateButton}>
+                    <TouchableOpacity onPress={add_user}>
+                    <Text style={styles.authenticate}>Create Account</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     );
 };
