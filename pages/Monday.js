@@ -1,9 +1,16 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Video from 'react-native-video';
 
 const MondayPage = () => {
     return (
         <View style={styles.container}>
+            <Video
+                source={{ uri: 'android.resource://video/SampleVideo.mp4'}}
+                style={styles.video}
+                controls={true}
+                resizeMode='contain'
+            />
             <View style={styles.labelBox}>
                 <Text style={styles.authenticate}>Monday</Text>
             </View>
@@ -31,5 +38,10 @@ const styles = StyleSheet.create ({
         marginTop: 70,
         padding: 15,
         alignSelf: 'center',
+    },
+    video: {
+        height: 300,
+        width: '100%',
+        marginBottom: 20,
     }
 });
