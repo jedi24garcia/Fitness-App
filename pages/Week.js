@@ -6,13 +6,13 @@ const WeekDays = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={styles.introText}>CALISTHENICS PLAN FOR ALL AGES</Text>
             <View style={styles.row}>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Teen')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Target')}>
                     <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
                     <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Youth/Adult')}>
                         <Text style={styles.authenticate}>18-35</Text> 
                     </TouchableOpacity>
                 </TouchableOpacity> 
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Teen')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Target')}>
                     <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />     
                     <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Adults')}>
                         <Text style={styles.authenticate}>36-45</Text>
@@ -20,13 +20,13 @@ const WeekDays = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.row}>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Teen')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Target')}>
                     <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
                     <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Adults')}>
                         <Text style={styles.authenticate}>46-55</Text>
                     </TouchableOpacity> 
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Teen')}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Target')}>
                     <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
                     <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Adult/Senior')}>
                         <Text style={styles.authenticate}>55+</Text>
