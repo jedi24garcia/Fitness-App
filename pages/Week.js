@@ -1,38 +1,36 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 
 const WeekDays = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => navigation.navigate('Monday')}>
-                    <Text style={styles.authenticate}>Monday</Text>
-                </TouchableOpacity> 
+            <View style={styles.row}>
+                <View style={styles.buttonContainer}>
+                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <TouchableOpacity style={styles.authenticateButton} onPress={() => navigation.navigate('Monday')}>
+                        <Text style={styles.authenticate}>18-35</Text>
+                    </TouchableOpacity> 
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />     
+                    <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Tuesday')}>
+                        <Text style={styles.authenticate}>36-45</Text>
+                    </TouchableOpacity> 
+                </View>
             </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Tuesday')}>
-                    <Text style={styles.authenticate}>Tuesday</Text>
-                </TouchableOpacity> 
-            </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Wednesday')}>
-                    <Text style={styles.authenticate}>Wednesday</Text>
-                </TouchableOpacity> 
-            </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Thursday')}>
-                    <Text style={styles.authenticate}>Thursday</Text>
-                </TouchableOpacity> 
-            </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Friday')}>
-                    <Text style={styles.authenticate}>Friday</Text>
-                </TouchableOpacity> 
-            </View>
-            <View style={styles.authenticateButton}>
-                <TouchableOpacity onPress={() => Alert.alert('Weekend')}>
-                    <Text style={styles.authenticate}>Weekend</Text>
-                </TouchableOpacity> 
+            <View style={styles.row}>
+                <View style={styles.buttonContainer}>
+                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Wednesday')}>
+                        <Text style={styles.authenticate}>46-55</Text>
+                    </TouchableOpacity> 
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <TouchableOpacity style={styles.authenticateButton} onPress={() => Alert.alert('Thursday')}>
+                        <Text style={styles.authenticate}>55+</Text>
+                    </TouchableOpacity> 
+                </View>
             </View>
         </View>
     );
@@ -47,17 +45,32 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
     },
+    row: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 20,
+    },
     authenticate: {
-        padding: 10,
+        fontSize: 18,
         textAlign: 'center',
         color: 'white',
+    },
+    fitnessImage: {
+        width: 100,
+        height: 100,
+        borderRadius: 10, 
+        marginBottom: 10,
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        width: '45%',
     },
     authenticateButton: {
         backgroundColor: '#00d3ff',
         borderRadius: 100,
-        width: '70%',
-        marginBottom: 50,
-        padding: 15,
-        alignSelf: 'center',
+        height: '100',
+        width: '45%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
 }); 
