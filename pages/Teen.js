@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
-const MondayPage = () => {
+const TeenPage = () => {
     return (
         <View style={styles.container}>
             <View style={styles.labelBox}>
@@ -11,7 +11,7 @@ const MondayPage = () => {
     );
 };
 
-export default MondayPage;
+export default TeenPage;
 
 const styles = StyleSheet.create ({
     container: {

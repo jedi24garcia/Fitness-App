@@ -5,7 +5,7 @@ import OpenPage from './pages/OpeningPage';
 import EntryPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUp';
 import WeekDays from './pages/Week';
-import MondayPage from './pages/Monday';
+import TeenPage from './pages/Teen';
 
 const Stack = createNativeStackNavigator()
 
@@ -17,7 +17,7 @@ const App = () => {
         <Stack.Screen name="Entry" component={EntryPage} />
         <Stack.Screen name="Sign" component={SignUpPage} />
         <Stack.Screen name="Week" component={WeekDays} />
-        <Stack.Screen name="Monday" component={MondayPage} />
+        <Stack.Screen name="Teen" component={TeenPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
