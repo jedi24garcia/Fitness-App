@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Image } from 'react-native';
 
 const BodyTarget = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
+            <View style={styles.viewImage}>
+                <Image style={styles.targetImage} source={require('../images/bodytransformed.webp')} />
+            </View>
         </View>
     );
 };
@@ -26,4 +29,8 @@ const styles = StyleSheet.create ({
         textAlign: 'center',
         color: 'white',
     },
+    viewImage: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 });
