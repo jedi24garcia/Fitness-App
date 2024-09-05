@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, ImageBackground, TouchableOpacity, View, Alert, TextInput } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Alert, TextInput } from 'react-native';
 import { SocialIcon } from 'react-native-elements';
+
+import '../Firebaseconfig';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const EntryPage = ({ navigation }) => {
     const [email, setEmail] = React.useState('');
@@ -8,16 +11,27 @@ const EntryPage = ({ navigation }) => {
     const [emailPlaceholder, setEmailPlaceholder] = React.useState('Type email address here');
     const [passwordPlaceholder, setPasswordPlaceholder] = React.useState('Type password here');
 
+    const auth = getAuth();
+    
+    const signInUser = () => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userCredentials) => {
+            const user = userCredentials.user;
+            console.log('User sign in with email:', user.email);
+            navigation.navigate('Week');
+        })
+        .catch((error) => Alert.alert(error.message));
+    };
+
     return (
         <View style={styles.container}>
-            {/* <ImageBackground source={require('../images/gym.jpg')} style={styles.image} imageStyle={{ opacity: 0.7 }}> */}
                 <View style={styles.content}>
                     <Text style={styles.authenticate}>Email Address</Text>
                     <TextInput style={styles.input} placeholder={emailPlaceholder} value={email} onChangeText={newText => setEmail(newText)} onFocus={() => setEmailPlaceholder('')} onBlur={() => setEmailPlaceholder('Type email address here')} />
                     <Text style={styles.authenticate}>Password</Text>
                     <TextInput style={styles.input} placeholder={passwordPlaceholder} value={password} onChangeText={newText => setPassword(newText)} onFocus={() => setPasswordPlaceholder('')} onBlur={() => setPasswordPlaceholder('Type password here')} secureTextEntry />
                     <View style={styles.authenticateButton}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Week')}>
+                        <TouchableOpacity onPress={signInUser}>
                             <Text style={styles.authenticateFont}>Login</Text>
                         </TouchableOpacity>
                     </View>
@@ -34,7 +48,6 @@ const EntryPage = ({ navigation }) => {
                         <SocialIcon type="google" />
                     </View>
                 </View>
-            {/* </ImageBackground> */}
         </View>
     );   
 };

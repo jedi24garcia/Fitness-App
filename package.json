@@ -15,6 +15,7 @@
     "expo-sqlite": "~14.0.6",
     "expo-status-bar": "~1.12.1",
     "expo-video": "^1.2.5",
+    "firebase": "^10.13.1",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-animated-pagination-dots": "^0.1.73",

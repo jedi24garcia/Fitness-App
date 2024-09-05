@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity } from 
 
 import { DatabaseConnection } from '../database/Database';
 
+import '../Firebaseconfig';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 const db = DatabaseConnection.getConnection();
 const SignUpPage = ({ navigation }) => {
     const [name, setName] = React.useState('');
@@ -10,18 +13,36 @@ const SignUpPage = ({ navigation }) => {
     const [password, setPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
 
+    const auth = getAuth();
+
     const add_user = () => {
         db.transaction(function (tx) {
             tx.executeSql(
                 "INSERT INTO table_user(user_name, user_address)VALUES(?, ?)",
                 [name, email, password, confirmPassword],
                 (tx, results) => {
-                    console.log("Successfully inserted data");
+                    console.log("User data successfully inserted into local database");
                     navigation.navigate('Entry');
                 }
             );
         });
     };
+
+    const createUser = () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredentials) => {
+            const user = userCredentials.user;
+            console.log('User sign in with email:', user.email)
+            
+            add_user();
+
+        }).catch(error=>alert(error.message));
+    }
 
     return (
         <View style={styles.container}>
@@ -46,8 +67,8 @@ const SignUpPage = ({ navigation }) => {
                     <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
                 </View>
                 <View style={styles.authenticateButton}>
-                    <TouchableOpacity onPress={add_user}>
-                    <Text style={styles.authenticate}>Create Account</Text>
+                    <TouchableOpacity onPress={createUser}>
+                        <Text style={styles.authenticate}>Create Account</Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
