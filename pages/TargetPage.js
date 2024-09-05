@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 
 const BodyTarget = () => {
     return (
@@ -7,6 +7,18 @@ const BodyTarget = () => {
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
             <View style={styles.viewImage}>
                 <Image style={styles.targetImage} source={require('../images/bodytransformed.webp')} />
+                <TouchableOpacity style={styles.armButton} onPress={() => Alert.alert('Hello')}>
+                    <Text style={styles.authenticate}>Arms</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.chestButton} onPress={() => Alert.alert('Hello')}>
+                    <Text style={styles.authenticate}>Chest</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.bellyButton} onPress={() => Alert.alert('Hello')}>
+                    <Text style={styles.authenticate}>Belly</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.legButton} onPress={() => Alert.alert('Hello')}>
+                    <Text style={styles.authenticate}>Legs</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -32,5 +44,49 @@ const styles = StyleSheet.create ({
     viewImage: {
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    armButton: {
+        position: 'absolute',
+        top: '25%',
+        left: '70%',
+        backgroundColor: '#00d3ff',
+        borderRadius: 20,
+        height: 60,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    chestButton: {
+        position: 'absolute',
+        top: '30%',
+        right: '40%',
+        backgroundColor: '#00d3ff',
+        borderRadius: 20,
+        height: 60,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    bellyButton: {
+        position: 'absolute',
+        top: '50%',
+        right: '30%',
+        backgroundColor: '#00d3ff',
+        borderRadius: 20,
+        height: 60,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },    
+    legButton: {
+        position: 'absolute',
+        top: '70%',
+        right: '30%',
+        backgroundColor: '#00d3ff',
+        borderRadius: 20,
+        height: 60,
+        width: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
