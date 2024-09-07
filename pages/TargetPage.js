@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 
-const BodyTarget = () => {
+const BodyTarget = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
             <View style={styles.viewImage}>
                 <Image style={styles.targetImage} source={require('../images/bodytransformed.webp')} />
-                <TouchableOpacity style={styles.armButton} onPress={() => Alert.alert('Hello')}>
+                <TouchableOpacity style={styles.armButton} onPress={() => navigation.navigate('Train')}>
                     <Text style={styles.authenticate}>Arms</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.chestButton} onPress={() => Alert.alert('Hello')}>
@@ -29,7 +29,7 @@ export default BodyTarget;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#083236',
+        backgroundColor: '#004D74',
         padding: 20,
     },
     introText: {

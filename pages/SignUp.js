@@ -81,7 +81,7 @@ export default SignUpPage;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#083236',
+        backgroundColor: '#004D74',
         padding: 20,
         justifyContent: 'center',
     },

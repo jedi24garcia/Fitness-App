@@ -63,7 +63,7 @@ export default OpenPage;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#083236',
+        backgroundColor: '#004D74',
     },
     page: {
         justifyContent: 'center',
