@@ -6,17 +6,17 @@ const BodyTarget = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
             <View style={styles.viewImage}>
-                <Image style={styles.targetImage} source={require('../images/bodytransformed.webp')} />
+                <Image style={styles.img} source={require('../images/bodytransformed.webp')} />
                 <TouchableOpacity style={styles.armButton} onPress={() => navigation.navigate('Train')}>
                     <Text style={styles.authenticate}>Arms</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.chestButton} onPress={() => Alert.alert('Hello')}>
+                <TouchableOpacity style={styles.chestButton} onPress={() => navigation.navigate('Train')}>
                     <Text style={styles.authenticate}>Chest</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.bellyButton} onPress={() => Alert.alert('Hello')}>
+                <TouchableOpacity style={styles.bellyButton} onPress={() => navigation.navigate('Train')}>
                     <Text style={styles.authenticate}>Belly</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.legButton} onPress={() => Alert.alert('Hello')}>
+                <TouchableOpacity style={styles.legButton} onPress={() => navigation.navigate('Train')}>
                     <Text style={styles.authenticate}>Legs</Text>
                 </TouchableOpacity>
             </View>
