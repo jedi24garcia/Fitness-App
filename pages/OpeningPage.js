@@ -31,8 +31,8 @@ const OpenPage = ({ navigation }) => {
                 onMomentumScrollEnd={handleScrollEnd}
             >
                 <View style={styles.page}>
+                    <Text style={styles.introText}>FitnessMate</Text>
                     <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Text style={styles.welcomeText}>Hello</Text>
                 </View>
                 <View style={styles.page} />
             </ScrollView>
@@ -63,16 +63,21 @@ export default OpenPage;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#004D74',
+        backgroundColor: '#5F84A2',
     },
     page: {
         justifyContent: 'center',
         alignItems: 'center',
         width: screenWidth,
     },
-    welcomeText: {
-        color: 'whitesmoke',
-        marginTop: 20,
+    introText: {
+        marginBottom: 20,
+        fontSize: 30,
+        fontStyle: "italic",
+        fontWeight: "900",
+        font: "@font/raleway_blackitalic",
+        textAlign: 'center',
+        color: '#00CED1',
     },
     fitnessImage: {
         width: 370,

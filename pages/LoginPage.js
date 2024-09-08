@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Alert, TextInput } from 'react-native';
-import { SocialIcon } from 'react-native-elements';
+import React from 'react';
+import { StyleSheet, Text, Image, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
+import { SocialIcon, Input } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import '../Firebaseconfig';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -8,8 +9,6 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 const EntryPage = ({ navigation }) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [emailPlaceholder, setEmailPlaceholder] = React.useState('Type email address here');
-    const [passwordPlaceholder, setPasswordPlaceholder] = React.useState('Type password here');
 
     const auth = getAuth();
     
@@ -17,30 +16,53 @@ const EntryPage = ({ navigation }) => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
             const user = userCredentials.user;
-            console.log('User sign in with email:', user.email);
+            console.log('User signed in with email:', user.email);
             navigation.navigate('Week');
         })
         .catch((error) => Alert.alert(error.message));
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView>
+            <View style={styles.container}>
                 <View style={styles.content}>
+                <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
                     <Text style={styles.authenticate}>Email Address</Text>
-                    <TextInput style={styles.input} placeholder={emailPlaceholder} value={email} onChangeText={newText => setEmail(newText)} onFocus={() => setEmailPlaceholder('')} onBlur={() => setEmailPlaceholder('Type email address here')} />
+                    <Input
+                        placeholder="Type email address here"
+                        value={email}
+                        onChangeText={setEmail}
+                        leftIcon={<Icon name="envelope" size={24} color="white" />}
+                        inputStyle={styles.inputText}
+                        inputContainerStyle={styles.inputContainer}
+                        placeholderTextColor="white"
+                    />
+
                     <Text style={styles.authenticate}>Password</Text>
-                    <TextInput style={styles.input} placeholder={passwordPlaceholder} value={password} onChangeText={newText => setPassword(newText)} onFocus={() => setPasswordPlaceholder('')} onBlur={() => setPasswordPlaceholder('Type password here')} secureTextEntry />
+                    <Input
+                        placeholder="Type password here"
+                        value={password}
+                        onChangeText={setPassword}
+                        secureTextEntry
+                        leftIcon={<Icon name="lock" size={24} color="white" />}
+                        inputStyle={styles.inputText}
+                        inputContainerStyle={styles.inputContainer}
+                        placeholderTextColor="white"
+                    />
+
                     <View style={styles.authenticateButton}>
                         <TouchableOpacity onPress={signInUser}>
                             <Text style={styles.authenticateFont}>Login</Text>
                         </TouchableOpacity>
                     </View>
+
                     <Text style={styles.authenticate}>Don't have an account?</Text>
                     <View style={styles.authenticateButton}>
                         <TouchableOpacity onPress={() => navigation.navigate('Sign')}>
                             <Text style={styles.authenticateFont}>Create Account</Text>
                         </TouchableOpacity>
                     </View>
+
                     <Text style={styles.authenticate}>Login with Social Accounts</Text>
                     <View style={styles.SocialMedia}>
                         <SocialIcon type="facebook" />
@@ -48,36 +70,36 @@ const EntryPage = ({ navigation }) => {
                         <SocialIcon type="google" />
                     </View>
                 </View>
-        </View>
+            </View>
+        </ScrollView>
     );   
 };
 
 export default EntryPage;
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#004D74',
+        backgroundColor: '#5F84A2',
     },
     content: {
         flex: 1,
-        resizeMode: 'cover',
-        padding: 100,
+        padding: 50,
     },
-    image: {
-        resizeMode: 'cover',
-        flex: 1,
-        // opacity: 0.2,
+    fitnessImage: {
+        width: 300, 
+        height: 300, 
+        borderRadius: 10,  
+        marginBottom: 20, 
     },
-    input: {
-        textAlign: 'center',
+    inputText: {
         color: 'white',
-        height: 50,
-        margin: 12,
-        borderWidth: 5,
-        borderColor: '#00d3ff',
-        borderRadius: 100, 
-        marginBottom: 30,
+    },
+    inputContainer: {
+        borderBottomWidth: 0, 
+        borderWidth: 2,
+        borderRadius: 100,
+        paddingHorizontal: 10,
     },
     authenticate: {
         padding: 10,
@@ -100,4 +122,4 @@ const styles = StyleSheet.create ({
         flexDirection: 'row',
         justifyContent: 'center',
     },
-})
+});

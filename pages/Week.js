@@ -42,7 +42,7 @@ export default WeekDays;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#004D74',
+        backgroundColor: '#5F84A2',
         padding: 20,
         justifyContent: 'center',
     },
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         fontWeight: "900",
         font: "@font/raleway_blackitalic",
         textAlign: 'center',
-        color: 'white',
+        color: '#00CED1',
     },
     row: {
         flexDirection: 'row',

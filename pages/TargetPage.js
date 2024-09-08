@@ -29,7 +29,7 @@ export default BodyTarget;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#004D74',
+        backgroundColor: '#5F84A2',
         padding: 20,
     },
     introText: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create ({
         fontWeight: "900",
         font: "@font/raleway_blackitalic",
         textAlign: 'center',
-        color: 'white',
+        color: '#00CED1',
     },
     viewImage: {
         justifyContent: 'center',
