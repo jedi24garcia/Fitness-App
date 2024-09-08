@@ -6,7 +6,7 @@ import EntryPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUp';
 import WeekDays from './pages/Week';
 import BodyTarget from './pages/TargetPage';
-import ArmTraining from './pages/ArmPage';
+import ArmTraining from './pages/Training/ArmPage';
 
 const Stack = createNativeStackNavigator()
 
