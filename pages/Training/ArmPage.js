@@ -7,20 +7,20 @@ const ArmTraining = () => {
             <View style={styles.container}>
                 <Text style={styles.introText}>TRAIN EFFECTIVELY EVERYWHERE</Text>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
                 </View>
             </View>
         </ScrollView>
