@@ -7,6 +7,9 @@ import SignUpPage from './pages/SignUp';
 import WeekDays from './pages/Week';
 import BodyTarget from './pages/TargetPage';
 import ArmTraining from './pages/Training/ArmPage';
+import ChestTraining from './pages/Training/ChestPage';
+import CoreTraining from './pages/Training/CorePage';
+import LegTraining from './pages/Training/LegsPage';
 
 const Stack = createNativeStackNavigator()
 
@@ -19,7 +22,10 @@ const App = () => {
         <Stack.Screen name="Sign" component={SignUpPage} />
         <Stack.Screen name="Week" component={WeekDays} />
         <Stack.Screen name="Target" component={BodyTarget} />
-        <Stack.Screen name="Train" component={ArmTraining} />
+        <Stack.Screen name="Arms" component={ArmTraining} />
+        <Stack.Screen name="Chest" component={ChestTraining} />
+        <Stack.Screen name="Core" component={CoreTraining} />
+        <Stack.Screen name="Leg" component={LegTraining} />
       </Stack.Navigator>
     </NavigationContainer>
   );

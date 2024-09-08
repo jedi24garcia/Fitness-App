@@ -7,16 +7,16 @@ const BodyTarget = ({ navigation }) => {
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
             <View style={styles.viewImage}>
                 <Image style={styles.img} source={require('../images/bodytransformed.webp')} />
-                <TouchableOpacity style={styles.armButton} onPress={() => navigation.navigate('Train')}>
+                <TouchableOpacity style={styles.armButton} onPress={() => navigation.navigate('Arms')}>
                     <Text style={styles.authenticate}>Arms</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.chestButton} onPress={() => navigation.navigate('Train')}>
+                <TouchableOpacity style={styles.chestButton} onPress={() => navigation.navigate('Chest')}>
                     <Text style={styles.authenticate}>Chest</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.bellyButton} onPress={() => navigation.navigate('Train')}>
-                    <Text style={styles.authenticate}>Belly</Text>
+                <TouchableOpacity style={styles.bellyButton} onPress={() => navigation.navigate('Core')}>
+                    <Text style={styles.authenticate}>Core</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.legButton} onPress={() => navigation.navigate('Train')}>
+                <TouchableOpacity style={styles.legButton} onPress={() => navigation.navigate('Leg')}>
                     <Text style={styles.authenticate}>Legs</Text>
                 </TouchableOpacity>
             </View>
