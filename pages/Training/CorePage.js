@@ -32,7 +32,7 @@ export default CoreTraining;
 const styles = StyleSheet.create ({
     container: {
         flex: 1,
-        backgroundColor: '#5F84A2',
+        backgroundColor: '#000000',
         padding: 20,
     },
     introText: {
