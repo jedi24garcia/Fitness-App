@@ -3,27 +3,19 @@ import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 
 const CoreTraining = () => {
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <Text style={styles.introText}>TRAIN EFFECTIVELY EVERYWHERE</Text>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Bridges.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Hanging_Leg_Raises.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Plank.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/High_Knees.gif')} />
                 </View>
-                <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                </View>
-                <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 

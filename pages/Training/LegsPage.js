@@ -3,27 +3,23 @@ import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 
 const LegTraining = () => {
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <Text style={styles.introText}>TRAIN EFFECTIVELY EVERYWHERE</Text>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Back_Squats.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Romanian_Deadlifts.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Split_Squat.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Leg_Extension.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Leg_Press.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Lunges.gif')} />
                 </View>
-                <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 

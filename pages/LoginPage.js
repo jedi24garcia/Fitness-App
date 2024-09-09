@@ -23,8 +23,8 @@ const EntryPage = ({ navigation }) => {
     };
 
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <View style={styles.content}>
                 <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
                     <Text style={styles.authenticate}>Email Address</Text>
@@ -70,8 +70,8 @@ const EntryPage = ({ navigation }) => {
                         <SocialIcon type="google" />
                     </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );   
 };
 

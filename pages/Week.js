@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Image, TouchableOpacity, Alert, ScrollView } fr
 
 const WeekDays = ({ navigation }) => {
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <Text style={styles.introText}>CALISTHENICS PLAN FOR ALL AGES</Text>
                 <View style={styles.row}>
                     <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Target')}>
@@ -34,8 +34,8 @@ const WeekDays = ({ navigation }) => {
                         </TouchableOpacity> 
                     </TouchableOpacity>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>    
     );
 };
 

@@ -3,27 +3,27 @@ import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 
 const ChestTraining = () => {
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <Text style={styles.introText}>TRAIN EFFECTIVELY EVERYWHERE</Text>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Flat_Bench_Press.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Dumbbell_Flyes.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Incline_Dumbbell_Press.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Push_Up.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Dumbbell_Press.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Chest_Dips.gif')} />
                 </View>
                 <View style={styles.row}>
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
-                    <Image style={styles.fitnessImage} source={require('../../images/gym.jpg')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Cable_Crossover.gif')} />
+                    <Image style={styles.fitnessImage} source={require('../../images/Level_Chest_Press.gif')} />
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 

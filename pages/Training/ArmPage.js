@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, Image, ScrollView } from 'react-native';
 
 const ArmTraining = () => {
     return (
-        <ScrollView>
-            <View style={styles.container}>
+        <View style={styles.container}>
+            <ScrollView>
                 <Text style={styles.introText}>TRAIN EFFECTIVELY EVERYWHERE</Text>
                 <View style={styles.row}>
                     <Image style={styles.fitnessImage} source={require('../../images/EZB_CURL.gif')} />
@@ -22,8 +22,8 @@ const ArmTraining = () => {
                     <Image style={styles.fitnessImage} source={require('../../images/Incline_Hammer_Curl.gif')} />
                     <Image style={styles.fitnessImage} source={require('../../images/Wrist_Curl.gif')} />
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     );
 };
 
