@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Image, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -13,6 +13,9 @@ import ArmTraining from './pages/Training/ArmPage';
 import ChestTraining from './pages/Training/ChestPage';
 import CoreTraining from './pages/Training/CorePage';
 import LegTraining from './pages/Training/LegsPage';
+
+const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
+import AuthenticateButton from './components/AuthenticateButton';
 
 import { getAuth, signOut } from 'firebase/auth'; // logout functionality from firebase
 
@@ -40,9 +43,9 @@ const DrawerNavigator = ({ setIsAuthenticated }) => {
       <Drawer.Screen name="Leg" component={LegTraining} />
       <Drawer.Screen name="Logout" options={{ drawerLabel: 'Logout' }}>
         {() => (
-          <View style={{ flex: 1, JustifyContent: 'center', alignItems: 'center' }}>
-            <Text>Are you sure you want to logout?</Text>
-            <Button title="Logout" onPress={handleLogout} />
+          <View style={{ flex: 1, JustifyContent: 'center', alignItems: 'center', marginTop: '70%', }}>
+            <Text style={{ marginBottom: 20, }}><B>Are you sure you want to logout?</B></Text>
+            <AuthenticateButton onPress={handleLogout} title="Logout" />
           </View>
         )}
       </Drawer.Screen> 

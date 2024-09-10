@@ -5,6 +5,8 @@ import FontIntroText from '../../components/IntroText';
 import FitnessImageView from '../../components/FitnessImage';
 import FitnessRow from '../../components/FitnessRow';
 import Container from '../../components/TrainContainer';
+import Authenticate from '../../components/AuthenticateText';
+import ImageContainer from '../../components/ContainImage';
 
 const CoreTraining = () => {
     return (
@@ -12,12 +14,24 @@ const CoreTraining = () => {
             <ScrollView>
                 <FontIntroText text="TRAIN EFFECTIVELY EVERYWHERE" />
                 <FitnessRow>
-                    <FitnessImageView source={require('../../images/Bridges.gif')} />
-                    <FitnessImageView source={require('../../images/Hanging_Leg_Raises.gif')} />
+                    <ImageContainer>
+                        <FitnessImageView source={require('../../images/Bridges.gif')} />
+                        <Authenticate text="Bridges" />
+                    </ImageContainer>
+                    <ImageContainer>    
+                        <FitnessImageView source={require('../../images/Hanging_Leg_Raises.gif')} />
+                        <Authenticate text="Hanging Leg Raises" />    
+                    </ImageContainer>
                 </FitnessRow>
                 <FitnessRow>
-                    <FitnessImageView source={require('../../images/Plank.gif')} />
-                    <FitnessImageView source={require('../../images/High_Knees.gif')} />
+                    <ImageContainer>
+                        <FitnessImageView source={require('../../images/Plank.gif')} />
+                        <Authenticate text="Plank" />
+                    </ImageContainer>
+                    <ImageContainer>
+                        <FitnessImageView source={require('../../images/High_Knees.gif')} />
+                        <Authenticate text="High Knees" />
+                    </ImageContainer>
                 </FitnessRow>
             </ScrollView>
         </Container>
