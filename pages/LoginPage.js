@@ -9,7 +9,7 @@ import AuthenticateButton from '../components/AuthenticateButton';
 import '../Firebaseconfig';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const EntryPage = ({ navigation }) => {
+const EntryPage = ({ navigation, setIsAuthenticated }) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
@@ -20,7 +20,7 @@ const EntryPage = ({ navigation }) => {
         .then((userCredentials) => {
             const user = userCredentials.user;
             console.log('User signed in with email:', user.email);
-            navigation.navigate('Week');
+            setIsAuthenticated(true); // sets to the next page if login is successful
         })
         .catch((error) => Alert.alert(error.message));
     };

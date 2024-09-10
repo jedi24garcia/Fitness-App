@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
 
-const WeekDays = ({ navigation }) => {
+const HomePage = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -39,7 +39,7 @@ const WeekDays = ({ navigation }) => {
     );
 };
 
-export default WeekDays;
+export default HomePage;
 
 const styles = StyleSheet.create({
     container: {
