@@ -3,6 +3,9 @@ import { StyleSheet, Text, Image, TouchableOpacity, View, Alert, ScrollView } fr
 import { SocialIcon, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Authenticate from '../components/AuthenticateText';
+import AuthenticateButton from '../components/AuthenticateButton';
+
 import '../Firebaseconfig';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -27,7 +30,7 @@ const EntryPage = ({ navigation }) => {
             <ScrollView>
                 <View style={styles.content}>
                 <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
-                    <Text style={styles.authenticate}>Email Address</Text>
+                    <Authenticate text="Email Address" />
                     <Input
                         placeholder="Type email address here"
                         value={email}
@@ -38,7 +41,7 @@ const EntryPage = ({ navigation }) => {
                         placeholderTextColor="white"
                     />
 
-                    <Text style={styles.authenticate}>Password</Text>
+                    <Authenticate text="Password" />           
                     <Input
                         placeholder="Type password here"
                         value={password}
@@ -50,20 +53,12 @@ const EntryPage = ({ navigation }) => {
                         placeholderTextColor="white"
                     />
 
-                    <View style={styles.authenticateButton}>
-                        <TouchableOpacity onPress={signInUser}>
-                            <Text style={styles.authenticateFont}>Login</Text>
-                        </TouchableOpacity>
-                    </View>
+                   <AuthenticateButton onPress={signInUser} title="Login" />
 
-                    <Text style={styles.authenticate}>Don't have an account?</Text>
-                    <View style={styles.authenticateButton}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Sign')}>
-                            <Text style={styles.authenticateFont}>Create Account</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Authenticate text="Don't have an account?" />
+                    <AuthenticateButton onPress={() => navigation.navigate('Sign')} title="Create Account" />
 
-                    <Text style={styles.authenticate}>Login with Social Accounts</Text>
+                    <Authenticate text="Login with Social Accounts" />
                     <View style={styles.SocialMedia}>
                         <SocialIcon type="facebook" />
                         <SocialIcon type="twitter" />
@@ -100,23 +95,6 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 100,
         paddingHorizontal: 10,
-    },
-    authenticate: {
-        padding: 10,
-        textAlign: 'center',
-        color: 'white',
-    },
-    authenticateButton: {
-        backgroundColor: '#00d3ff',
-        borderRadius: 100,
-        width: '70%',
-        marginBottom: 50,
-        padding: 15,
-        alignSelf: 'center',
-    },
-    authenticateFont: {
-        color: '#F5F5F5',
-        textAlign: 'center',
     },
     SocialMedia: {
         flexDirection: 'row',

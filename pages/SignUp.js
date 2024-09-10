@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity } from 
 
 import { DatabaseConnection } from '../database/Database';
 
+import Authenticate from '../components/AuthenticateText';
+import AuthenticateButton from '../components/AuthenticateButton';
+
 import '../Firebaseconfig';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -66,11 +69,7 @@ const SignUpPage = ({ navigation }) => {
                     <Text style={styles.fonts}>Confirm Password</Text>
                     <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
                 </View>
-                <View style={styles.authenticateButton}>
-                    <TouchableOpacity onPress={createUser}>
-                        <Text style={styles.authenticate}>Create Account</Text>
-                    </TouchableOpacity>
-                </View>
+                <AuthenticateButton onPress={createUser} title="Create Account" />
             </ScrollView>
         </View>
     );
@@ -82,8 +81,6 @@ const styles = StyleSheet.create ({
     container: {
         flex: 1,
         backgroundColor: '#000000',
-        padding: 20,
-        justifyContent: 'center',
     },
     signContent: {
         marginBottom: 20,
@@ -91,6 +88,7 @@ const styles = StyleSheet.create ({
     SignUpFont: {
         color: '#00d3ff',
         textAlign: 'center',
+        padding: 20,
         fontSize: 30,
         marginBottom: 40,
     },
@@ -108,18 +106,5 @@ const styles = StyleSheet.create ({
         borderColor: '#00d3ff',
         borderRadius: 100, 
         paddingHorizontal: 20,
-    },
-    authenticate: {
-        padding: 10,
-        textAlign: 'center',
-        color: 'white',
-    },
-    authenticateButton: {
-        backgroundColor: '#00d3ff',
-        borderRadius: 100,
-        width: '70%',
-        marginBottom: 50,
-        padding: 15,
-        alignSelf: 'center',
     },
 })
