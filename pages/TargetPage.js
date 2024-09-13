@@ -6,7 +6,7 @@ const BodyTarget = ({ navigation }) => {
         <View style={styles.container}>
             <Text style={styles.introText}>HIT YOUR DESIRED TARGET AREA</Text>
             <View style={styles.viewImage}>
-                <Image style={styles.img} source={require('../images/bodytransformed.webp')} />
+                <Image style={styles.img} source={require('../images/TargetImage.png')} />
                 <TouchableOpacity style={styles.armButton} onPress={() => navigation.navigate('Arms')}>
                     <Text style={styles.authenticate}>Arms</Text>
                 </TouchableOpacity>
@@ -89,8 +89,8 @@ const styles = StyleSheet.create ({
     },    
     legButton: {
         position: 'absolute',
-        top: '70%',
-        right: '30%',
+        top: '80%',
+        right: '50%',
         backgroundColor: '#7E7C7C',
         borderRadius: 20,
         overflow: "hidden",
