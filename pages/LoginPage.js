@@ -29,7 +29,7 @@ const EntryPage = ({ navigation, setIsAuthenticated }) => {
         <View style={styles.container}>
             <ScrollView>
                 <View style={styles.content}>
-                <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} />
+                <Image style={styles.fitnessImage} source={require('../images/mainbg.webp')} />
                     <Authenticate text="Email Address" />
                     <Input
                         placeholder="Type email address here"
@@ -52,12 +52,11 @@ const EntryPage = ({ navigation, setIsAuthenticated }) => {
                         inputContainerStyle={styles.inputContainer}
                         placeholderTextColor="white"
                     />
-
-                   <AuthenticateButton onPress={signInUser} title="Login" />
+                    <AuthenticateButton onPress={signInUser} title="Login" />
 
                     <Authenticate text="Don't have an account?" />
                     <AuthenticateButton onPress={() => navigation.navigate('Sign')} title="Create Account" />
-
+                        
                     <Authenticate text="Login with Social Accounts" />
                     <View style={styles.SocialMedia}>
                         <SocialIcon type="facebook" />
@@ -78,14 +77,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000',
     },
     content: {
-        flex: 1,
         padding: 50,
     },
     fitnessImage: {
         width: 300, 
-        height: 300, 
-        borderRadius: 10,  
-        marginBottom: 20, 
+        height: 305,   
     },
     inputText: {
         color: 'white',
@@ -95,6 +91,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 100,
         paddingHorizontal: 10,
+        width: '100%',
     },
     SocialMedia: {
         flexDirection: 'row',

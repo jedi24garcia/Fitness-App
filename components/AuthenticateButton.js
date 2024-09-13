@@ -11,8 +11,10 @@ const AuthenticateButton = ({ onPress, title }) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#00d3ff',
+        backgroundColor: '#7E7C7C',
         borderRadius: 100,
+        borderColor: '#a9a9a9',
+        borderWidth: 3,
         width: '70%',
         marginBottom: 50,
         padding: 15,
@@ -25,4 +27,3 @@ const styles = StyleSheet.create({
 });
 
 export default AuthenticateButton;
-

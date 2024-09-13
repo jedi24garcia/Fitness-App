@@ -55,7 +55,7 @@ const SignUpPage = ({ navigation }) => {
                 </View>
                 <View>
                     <Text style={styles.fonts}>Name</Text>
-                    <TextInput style={styles.input} onChangeText={newText => setName(newText)} value={name} placeholder="Enter your name" placeholderTextcolor={"#aaa"} />
+                    <TextInput style={styles.input} onChangeText={newText => setName(newText)} value={name} placeholder="Enter your name" placeholderTextColor={"#aaa"} />
                 </View>
                 <View>
                     <Text style={styles.fonts}>Email</Text>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create ({
     fonts: {
         textAlign: 'center',
         color: 'white',
-        marginBottom: 8,
+        marginBottom: 5,
     },
     input: {
         textAlign: 'center',
@@ -103,8 +103,8 @@ const styles = StyleSheet.create ({
         height: 50,
         margin: 12,
         borderWidth: 5,
-        borderColor: '#00d3ff',
+        borderColor: '#7E7C7C',
         borderRadius: 100, 
         paddingHorizontal: 20,
     },
-})
+});

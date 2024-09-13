@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     authenticateFont: {
         padding: 10,
         textAlign: 'center',
-        color: 'white',
+        color: '#00CED1',
     },
 });
 

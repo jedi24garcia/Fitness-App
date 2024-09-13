@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         width: '45%',
     },
     authenticateButton: {
-        backgroundColor: '#00CED1',
+        backgroundColor: '#7E7C7C',
         borderRadius: 100,
         overflow: "hidden",
         borderWidth: 3,

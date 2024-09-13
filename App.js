@@ -15,7 +15,9 @@ import CoreTraining from './pages/Training/CorePage';
 import LegTraining from './pages/Training/LegsPage';
 
 const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
+
 import AuthenticateButton from './components/AuthenticateButton';
+import BackgroundImage from './components/MainBackground';
 
 import { getAuth, signOut } from 'firebase/auth'; // logout functionality from firebase
 
@@ -43,10 +45,12 @@ const DrawerNavigator = ({ setIsAuthenticated }) => {
       <Drawer.Screen name="Leg" component={LegTraining} />
       <Drawer.Screen name="Logout" options={{ drawerLabel: 'Logout' }}>
         {() => (
-          <View style={{ flex: 1, JustifyContent: 'center', alignItems: 'center', marginTop: '70%', }}>
-            <Text style={{ marginBottom: 20, }}><B>Are you sure you want to logout?</B></Text>
-            <AuthenticateButton onPress={handleLogout} title="Logout" />
-          </View>
+          <BackgroundImage source={require('./images/mainbg.webp')}>
+            <View style={{ flex: 1, JustifyContent: 'center', alignItems: 'center', paddingTop: '140%', }}>
+              <Text style={{ marginBottom: 20, color: '#00CED1' }}><B>Are you sure you want to logout?</B></Text>
+              <AuthenticateButton onPress={handleLogout} title="Logout" />
+            </View>
+          </BackgroundImage>
         )}
       </Drawer.Screen> 
     </Drawer.Navigator>
