@@ -34,7 +34,6 @@ const OpenPage = ({ navigation }) => {
                 >
                     <View style={styles.page}>
                         <Text style={styles.introText}>FitnessMate</Text>
-                        {/* <Image style={styles.fitnessImage} source={require('../images/gym.jpg')} /> */}
                     </View>
                     <View style={styles.page} />
                 </ScrollView>
@@ -55,7 +54,6 @@ const OpenPage = ({ navigation }) => {
                         position: 'absolute',
                         bottom: 30,
                     }} 
-
                 />
         </BackgroundImage>
     );

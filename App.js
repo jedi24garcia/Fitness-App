@@ -46,7 +46,7 @@ const DrawerNavigator = ({ setIsAuthenticated }) => {
       <Drawer.Screen name="Logout" options={{ drawerLabel: 'Logout' }}>
         {() => (
           <BackgroundImage source={require('./images/mainbg.webp')}>
-            <View style={{ flex: 1, JustifyContent: 'center', alignItems: 'center', paddingTop: '140%', }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingTop: '80%', }}>
               <Text style={{ marginBottom: 20, color: '#00CED1' }}><B>Are you sure you want to logout?</B></Text>
               <AuthenticateButton onPress={handleLogout} title="Logout" />
             </View>
