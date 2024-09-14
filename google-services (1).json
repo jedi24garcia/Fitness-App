@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "59974495356",
+    "project_id": "fitnessmatemobile",
+    "storage_bucket": "fitnessmatemobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59974495356:android:ad004a9db599abf632edf9",
+        "android_client_info": {
+          "package_name": "com.example.illama"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCS-xNM7gDPqhR-IGTKs8Y0A7vsF7V38Ws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
