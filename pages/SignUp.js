@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TextInput, ScrollView, Alert } from 'react-native';
 
 import { DatabaseConnection } from '../database/Database';
 
@@ -41,6 +41,7 @@ const SignUpPage = ({ navigation }) => {
         .then((userCredentials) => {
             const user = userCredentials.user;
             console.log('User sign in with email:', user.email)
+            Alert.alert('Successfull Signed Up')
             
             add_user();
 
