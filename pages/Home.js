@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
-import { StyleSheet, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useCameraDevices, Camera } from 'react-native-vision-camera';
+import { RNCamera } from 'react-native-camera';
 
-import LoadingView from '../components/LoadingView';
+// import LoadingView from '../components/LoadingView';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,59 +16,112 @@ function GamificationScreen() {
     );
 };
 
-const CameraScreen = () => {
-    const camera = useRef(null);
-    const devices = useCameraDevices("wide-angle-camera");
-    console.log(devices);
-    const device = devices.back; // Get the back camera device
+const PersonalProfile = () => {
+  const navigation = useNavigation();
+  const cameraRef = useRef(null);
+  const [flashMode, setFlashMode] = useState(RNCamera.Constants.FlashMode.off);
+  const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back);
+  const [recording, setRecording] = useState(false);
+  const [seconds, setSeconds] = useState(0);
 
-    const [cameraReady, setCameraReady] = useState(false);
-  
-    const handleCameraReady = () => {
-      setCameraReady(true);
+  const onTorchPress = () => {
+    setFlashMode(
+        flashMode === RNCamera.Constants.FlashMode.off
+          ? RNCamera.Constants.FlashMode.on
+          : RNCamera.Constants.FlashMode.off
+      );
     };
-  
-    const takePicture = async () => {
-      if (device && cameraReady) {
-        try {
-          const photo = await device.takePhoto({
-            qualityPrioritization: 'speed',
-            skipMetadata: true,
-          });
-          console.log(photo.uri);
-          Alert.alert('Picture taken', `Picture saved at: ${photo.uri}`);
-        } catch (error) {
-          console.error(error);
-          Alert.alert('Error', 'Could not take picture');
+
+    const changeCameraType = () => {
+        setCameraType(
+          cameraType === RNCamera.Constants.Type.back
+            ? RNCamera.Constants.Type.front
+            : RNCamera.Constants.Type.back
+        );
+      };
+
+      const takePicture = async () => {
+        if (cameraRef.current) {
+          const options = { quality: 0.5, base64: true };
+          const data = await cameraRef.current.takePictureAsync(options);
+          console.log(data.uri); // Picture URI
         }
-      } else {
-        Alert.alert('Camera not ready', 'Please wait until the camera is ready');
-      }
-    };
-  
-    if (device == null) return <LoadingView />;
-  
-    return (
-      <View style={styles.pageContainer}>
-        <Camera
-            ref={camera}
-            device={device}
-            isActive={true}
-            style={StyleSheet.absoluteFill}
-        /> 
-        <TouchableOpacity style={styles.captureButton} onPress={takePicture}>
-          <Text style={styles.captureText}>Take Picture</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  };
-  
-function PersonalProfile () {
-    return (
-            <View style={styles.pageContainer}>
-            <CameraScreen />
+      };
+    
+      const startRecordingVideo = async () => {
+        if (cameraRef.current) {
+          setRecording(true);
+          const promise = cameraRef.current.recordAsync();
+          setSeconds(0);
+    
+          if (promise) {
+            const data = await promise;
+            console.log(data.uri); // Video URI
+            setRecording(false);
+          }
+        }
+      };
+    
+      const stopRecordingVideo = () => {
+        if (cameraRef.current && recording) {
+          cameraRef.current.stopRecording();
+          setRecording(false);
+        }
+      };
+
+  return (
+    <SafeAreaView style={styles.container}>
+        <RNCamera
+            ref={cameraRef}
+            style={styles.camera}
+            type={cameraType}
+            flashMode={flashMode}
+            captureAudio={true}
+      >
+        <View style={styles.header}>
+          <TouchableOpacity onPress={navigation.goBack}>
+            <Image
+              source={require('../images/gym.jpg')}
+              style={styles.closeIcon}
+            />
+          </TouchableOpacity>
+          {recording && (
+            <View style={styles.timer}>
+              <Text style={styles.timerText}>Recording: {seconds}s</Text>
+            </View>
+          )}
+          {cameraType === RNCamera.Constants.Type.back && (
+            <TouchableOpacity onPress={onTorchPress}>
+              <Image
+                source={require('../images/gym.jpg')}
+                style={styles.torchIcon}
+              />
+            </TouchableOpacity>
+          )}
         </View>
-    )
+        <View style={styles.captureContainer}>
+          <TouchableOpacity
+            onPress={takePicture}
+            onLongPress={startRecordingVideo}
+            onPressOut={stopRecordingVideo}
+            style={[
+              styles.captureButton,
+              recording ? styles.captureButtonInProgress : null,
+            ]}
+          />
+          <TouchableOpacity onPress={changeCameraType} disabled={recording}>
+            <Image
+              source={require('../images/gym.jpg')}
+              style={styles.switchCameraIcon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>Hold for video, tap for photo</Text>
+        </View>
+      </RNCamera>
+    </SafeAreaView>
+  );
 };
 
 function HomeContent({ navigation }) {
