@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { RNCamera } from 'react-native-camera';
+import * as ImagePicker from 'expo-image-picker';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 
-// import LoadingView from '../components/LoadingView';
+import AuthenticateButton from '../components/AuthenticateButton';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,112 +18,92 @@ function GamificationScreen() {
 };
 
 const PersonalProfile = () => {
-  const navigation = useNavigation();
-  const cameraRef = useRef(null);
-  const [flashMode, setFlashMode] = useState(RNCamera.Constants.FlashMode.off);
-  const [cameraType, setCameraType] = useState(RNCamera.Constants.Type.back);
-  const [recording, setRecording] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+  const [image, setImage] = useState(null);
 
-  const onTorchPress = () => {
-    setFlashMode(
-        flashMode === RNCamera.Constants.FlashMode.off
-          ? RNCamera.Constants.FlashMode.on
-          : RNCamera.Constants.FlashMode.off
-      );
-    };
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
 
-    const changeCameraType = () => {
-        setCameraType(
-          cameraType === RNCamera.Constants.Type.back
-            ? RNCamera.Constants.Type.front
-            : RNCamera.Constants.Type.back
-        );
-      };
+    console.log(result);
 
-      const takePicture = async () => {
-        if (cameraRef.current) {
-          const options = { quality: 0.5, base64: true };
-          const data = await cameraRef.current.takePictureAsync(options);
-          console.log(data.uri); // Picture URI
-        }
-      };
-    
-      const startRecordingVideo = async () => {
-        if (cameraRef.current) {
-          setRecording(true);
-          const promise = cameraRef.current.recordAsync();
-          setSeconds(0);
-    
-          if (promise) {
-            const data = await promise;
-            console.log(data.uri); // Video URI
-            setRecording(false);
-          }
-        }
-      };
-    
-      const stopRecordingVideo = () => {
-        if (cameraRef.current && recording) {
-          cameraRef.current.stopRecording();
-          setRecording(false);
-        }
-      };
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setImage(uri);
+      await saveImageToDisk(uri); // Save the image immediately after picking
+    } else {
+      Alert.alert('Error', 'No image selected.'); // Alert if no image is selected
+    }
+  };
+
+  const saveImageToDisk = async (uri) => {
+    try {
+      if (!uri) {
+        Alert.alert('Error', 'No image URI provided.');
+        return;
+      }
+
+      // Request permission to access media library
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Error', 'Permission to access media library denied.');
+        return;
+      }
+
+      const fileName = uri.split('/').pop();
+      const newPath = FileSystem.documentDirectory + fileName;
+
+      await FileSystem.copyAsync({
+        from: uri,
+        to: newPath,
+      });
+
+      // Save image to the camera roll
+      await MediaLibrary.saveToLibraryAsync(newPath);
+
+      Alert.alert('Success', 'Image saved to camera roll!');
+    } catch (error) {
+      console.error('Error saving image:', error);
+      Alert.alert('Error', 'Failed to save image. Please try again.');
+    }
+  };
+
+  const openCamera = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert("You've refused to allow this app to access your camera!");
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      setImage(uri);
+      await saveImageToDisk(uri); // Save the captured image to the camera roll
+    } else {
+      Alert.alert('Error', 'No image captured.');
+    }
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-        <RNCamera
-            ref={cameraRef}
-            style={styles.camera}
-            type={cameraType}
-            flashMode={flashMode}
-            captureAudio={true}
-      >
-        <View style={styles.header}>
-          <TouchableOpacity onPress={navigation.goBack}>
-            <Image
-              source={require('../images/gym.jpg')}
-              style={styles.closeIcon}
-            />
-          </TouchableOpacity>
-          {recording && (
-            <View style={styles.timer}>
-              <Text style={styles.timerText}>Recording: {seconds}s</Text>
-            </View>
-          )}
-          {cameraType === RNCamera.Constants.Type.back && (
-            <TouchableOpacity onPress={onTorchPress}>
-              <Image
-                source={require('../images/gym.jpg')}
-                style={styles.torchIcon}
-              />
-            </TouchableOpacity>
-          )}
-        </View>
-        <View style={styles.captureContainer}>
-          <TouchableOpacity
-            onPress={takePicture}
-            onLongPress={startRecordingVideo}
-            onPressOut={stopRecordingVideo}
-            style={[
-              styles.captureButton,
-              recording ? styles.captureButtonInProgress : null,
-            ]}
-          />
-          <TouchableOpacity onPress={changeCameraType} disabled={recording}>
-            <Image
-              source={require('../images/gym.jpg')}
-              style={styles.switchCameraIcon}
-            />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.footer}>
-          <Text style={styles.footerText}>Hold for video, tap for photo</Text>
-        </View>
-      </RNCamera>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <AuthenticateButton title="Take a photo" onPress={openCamera} />
+      <AuthenticateButton title="Pick an image from camera roll" onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+    </View>
   );
-};
+}
 
 function HomeContent({ navigation }) {
     return (
