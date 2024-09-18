@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, Alert } from 'react-native';
+
 import { DatabaseConnection } from '../database/Database';
+
+import Authenticate from '../components/AuthenticateText';
 import AuthenticateButton from '../components/AuthenticateButton';
+
 import '../Firebaseconfig';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const db = DatabaseConnection.getConnection();
-
 const SignUpPage = ({ navigation }) => {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
@@ -15,21 +18,14 @@ const SignUpPage = ({ navigation }) => {
 
     const auth = getAuth();
 
-    useEffect(() => {
-        DatabaseConnection.createTable(); // Use createTable from DatabaseConnection
-    }, []);
-
-    const addUserToLocalDB = () => {
-        db.transaction(tx => {
+    const add_user = () => {
+        db.transaction(function (tx) {
             tx.executeSql(
-                'INSERT INTO users (email, password) VALUES (?, ?);',
-                [email, password],
-                (_, result) => {
-                    console.log('User data successfully inserted into local database');
+                "INSERT INTO table_user(user_name, user_address)VALUES(?, ?)",
+                [name, email, password, confirmPassword],
+                (tx, results) => {
+                    console.log("User data successfully inserted into local database");
                     navigation.navigate('Entry');
-                },
-                (_, error) => {
-                    console.error('Error inserting user data', error);
                 }
             );
         });
@@ -37,24 +33,20 @@ const SignUpPage = ({ navigation }) => {
 
     const createUser = () => {
         if (password !== confirmPassword) {
-            Alert.alert('Passwords do not match');
+            alert("Passwords do not match");
             return;
         }
 
         createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredentials) => {
-                const user = userCredentials.user;
-                console.log('User signed up with email:', user.email);
-                Alert.alert('Successfully Signed Up');
-                // If sign-up is successful, you might not need to add user to local DB
-                navigation.navigate('Entry');
-            })
-            .catch(error => {
-                console.error('Sign up error:', error.message);
-                // Save user to local database if Firebase sign-up fails
-                addUserToLocalDB();
-            });
-    };
+        .then((userCredentials) => {
+            const user = userCredentials.user;
+            console.log('User sign in with email:', user.email)
+            Alert.alert('Successfull Signed Up')
+            
+            add_user();
+
+        }).catch(error=>alert(error.message));
+    }
 
     return (
         <View style={styles.container}>
@@ -64,47 +56,19 @@ const SignUpPage = ({ navigation }) => {
                 </View>
                 <View>
                     <Text style={styles.fonts}>Name</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setName}
-                        value={name}
-                        placeholder="Enter your name"
-                        placeholderTextColor={"#aaa"}
-                    />
+                    <TextInput style={styles.input} onChangeText={newText => setName(newText)} value={name} placeholder="Enter your name" placeholderTextColor={"#aaa"} />
                 </View>
                 <View>
                     <Text style={styles.fonts}>Email</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setEmail}
-                        value={email}
-                        placeholder="Enter your email"
-                        placeholderTextColor={"#aaa"}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                    />
+                    <TextInput style={styles.input} onChangeText={newText => setEmail(newText)} value={email} placeholder="Enter you email" placeholderTextColor={"#aaa"} keyboardType="emailaddress" autoCapitalize="none" />
                 </View>
                 <View>
                     <Text style={styles.fonts}>Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setPassword}
-                        value={password}
-                        placeholder="Enter your password"
-                        placeholderTextColor={"#aaa"}
-                        secureTextEntry
-                    />
+                    <TextInput style={styles.input} onChangeText={newText => setPassword(newText)} value={password} placeholder="Enter your password" placeholderTextColor={"#aaa"} secureTextEntry />
                 </View>
                 <View>
                     <Text style={styles.fonts}>Confirm Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setConfirmPassword}
-                        value={confirmPassword}
-                        placeholder="Please confirm password"
-                        placeholderTextColor={"#aaa"}
-                        secureTextEntry
-                    />
+                    <TextInput style={styles.input} onChangeText={newText => setConfirmPassword(newText)} value={confirmPassword} placeholder="Please confirm password" placeholderTextColor={"#aaa"} secureTextEntry />
                 </View>
                 <AuthenticateButton onPress={createUser} title="Create Account" />
             </ScrollView>
@@ -114,7 +78,7 @@ const SignUpPage = ({ navigation }) => {
 
 export default SignUpPage;
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
     container: {
         flex: 1,
         backgroundColor: '#000000',
@@ -141,7 +105,7 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 5,
         borderColor: '#7E7C7C',
-        borderRadius: 100,
+        borderRadius: 100, 
         paddingHorizontal: 20,
     },
 });
