@@ -1,23 +1,25 @@
 import React from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, Alert } from 'react-native';
 
-import { DatabaseConnection } from '../database/Database';
+import { DatabaseConnection } from '../database/Database';  // imports the SQLite database connection
 
 import Authenticate from '../components/AuthenticateText';
 import AuthenticateButton from '../components/AuthenticateButton';
 
 import '../Firebaseconfig';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // This is the Firebase Authentication functions
 
 const db = DatabaseConnection.getConnection();
 const SignUpPage = ({ navigation }) => {
-    const [name, setName] = React.useState('');
+    // Lines below are store variables to store user input data
+    const [name, setName] = React.useState(''); 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [confirmPassword, setConfirmPassword] = React.useState('');
 
     const auth = getAuth();
 
+    // This function is to add user to the local SQLite database
     const add_user = () => {
         db.transaction(function (tx) {
             tx.executeSql(
@@ -31,12 +33,14 @@ const SignUpPage = ({ navigation }) => {
         });
     };
 
+    // This function is to create a new user account using the Firebase authentication
     const createUser = () => {
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
+        // Below uses Firebase's createUserWithEmailAndPassword to create a new user
         createUserWithEmailAndPassword(auth, email, password)
         .then((userCredentials) => {
             const user = userCredentials.user;

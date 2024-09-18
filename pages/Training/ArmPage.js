@@ -10,6 +10,7 @@ import Authenticate from '../../components/AuthenticateText';
 import ImageContainer from '../../components/ContainImage';
 
 const ArmTraining = () => {
+    // States Initialization - meaning to keep track of the number of sets completed for each exercise
     const [sets, setSets] = useState({
         ezBarCurl: 0,
         bicepCurl: 0,
@@ -21,6 +22,7 @@ const ArmTraining = () => {
         wristCurl: 0,
     });
 
+    // This effect hook for permissions. Purpose: It requests authorization to access Google Fit data when the component mounts
     useEffect(() => {
         const requestPermissions = async () => {
             try {
@@ -33,7 +35,7 @@ const ArmTraining = () => {
                 };
     
                 // Authorize Google Fit
-                GoogleFit.authorize(options)
+                GoogleFit.authorize(options) // This method is to authorize access to Google Fit when specified scopes
                     .then((authResult) => {
                         if (authResult.success) {
                             console.log('Google Fit Authorization Success:', authResult);
@@ -52,6 +54,7 @@ const ArmTraining = () => {
         requestPermissions();
     }, []);
 
+    // The purpose below is to count the sets for a given exercise and logs the workout data to Google Fit
     const incrementSet = async (exercise) => {
         setSets((prevSets) => {
             const updatedSets = { ...prevSets, [exercise]: prevSets[exercise] + 1 };
@@ -74,10 +77,12 @@ const ArmTraining = () => {
         });
     };
 
+    // Reset Set Function
     const resetSet = (exercise) => {
         setSets((prevSets) => ({ ...prevSets, [exercise]: 0 }));
     };
     
+    // Component Rendering
     return (
         <Container>
             <ScrollView>
