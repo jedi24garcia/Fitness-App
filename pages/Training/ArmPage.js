@@ -77,6 +77,7 @@ const ArmTraining = () => {
     const resetSet = (exercise) => {
         setSets((prevSets) => ({ ...prevSets, [exercise]: 0 }));
     };
+    
     return (
         <Container>
             <ScrollView>
