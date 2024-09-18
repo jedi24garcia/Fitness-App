@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 // This function is for the Gamification Tab
 function GamificationScreen() {
   // State to track progress, points, and badges
-  const [progress, setProgress] = useState(0.6);  // Example: 60% progress
+  const [progress, setProgress] = useState(0.1);  // Example: 60% progress
   const [points, setPoints] = useState(0);  // The user starts with 0 points
   const [badges, setBadges] = useState([ // List of badges with status (earned or not)
       { id: 1, name: 'Beginner Badge', earned: true },
@@ -25,7 +25,14 @@ function GamificationScreen() {
   const addPoints = () => {
       const newPoints = points + 100; // Add 100 points for demonstration
       setPoints(newPoints); // This updates the points state
+      updateProgress(newPoints); // This updates the progress
       checkForBadges(newPoints);  // Check if a new badge should be awarded
+  };
+
+  const updateProgress = (newPoints) => {
+    const maxPoints = 5000;  // Set the max points for full progress
+    const newProgress = newPoints / maxPoints;  // Calculate progress as a fraction
+    setProgress(newProgress);  // Update progress state
   };
 
   // This function is to check if new badges should be awarded or if the user should earn badges based on their points
@@ -47,7 +54,7 @@ function GamificationScreen() {
         <Text style={styles.introText}>Rewards</Text>
 
         <Text style={styles.pointsText}>Points: {points}</Text>
-        <ProgressBar styleAttr="Horizontal" indeterminate={false} progress={progress} color="#00CED1" />
+        <ProgressBar style={styles.progressBarView} progress={progress} color="#00CED1" />
         <Text>Progress: {Math.round(progress * 100)}%</Text>
 
         <View>
@@ -249,6 +256,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '45%',
     },
+    progressBarView: {
+      width: '80%',  
+      backgroundColor: '#7E7C7C',
+      borderRadius: 5,
+      height: 20,
+  },
     authenticateButton: {
         backgroundColor: '#7E7C7C',
         borderRadius: 100,
