@@ -1,1 +1,1 @@
-This is a mobile application to guide individuals who are just starting out at the gym!
+This is a mobile application to guide young people who are just starting out at the gym!
