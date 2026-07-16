@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
-import { StyleSheet, View, Text, Image, Animated, ScrollView, Dimensions } from 'react-native';
-import { ExpandingDot } from 'react-native-animated-pagination-dots';
+import React, { useEffect, useRef } from 'react';
+import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBackground, ActivityIndicator } from 'react-native';
+import { router } from 'expo-router';
+import { useAuth } from '@/context/AuthContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import BackgroundImage from '../components/MainBackground';
 
