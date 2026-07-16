@@ -4,8 +4,6 @@ import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import BackgroundImage from '../components/MainBackground';
-
 const { width: screenWidth } = Dimensions.get('window');
 
 const OpenPage = ({ navigation }) => {
