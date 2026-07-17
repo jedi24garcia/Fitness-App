@@ -1,100 +1,251 @@
-import React from 'react';
-import { StyleSheet, Text, Image, TouchableOpacity, View, Alert, ScrollView } from 'react-native';
-import { SocialIcon, Input } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, ScrollView, Platform, KeyboardAvoidingView, ScrollView, ImageBackground, Touchable } from 'react-native';
+import { router } from 'expo-router';
+import { useAuth } from '@/context/AuthContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from 'expo/vector-icons';
 
-import Authenticate from '../components/AuthenticateText';
-import AuthenticateButton from '../components/AuthenticateButton';
+// import { SocialIcon, Input } from 'react-native-elements';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
-import '../Firebaseconfig';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+// import Authenticate from '../components/AuthenticateText';
+// import AuthenticateButton from '../components/AuthenticateButton';
 
-const EntryPage = ({ navigation, setIsAuthenticated }) => {
-    const [email, setEmail] = React.useState('');
+// import '../Firebaseconfig';
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+export default function LoginScreen() {
+    const { signIn } = useAuth();
+    const insets = useSafeAreaInsets();
+    const [ email, setEmail ] = React.useState('');
     const [password, setPassword] = React.useState('');
-
-    const auth = getAuth();
+    const [loading, setLoading] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState(false);
+    
+}
+    const webTop = Platform.OS === 'web' ? 67 : 0;
+    const webBottom = Platform.OS === 'web' ? 34 : 0;
     
     const signInUser = () => {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredentials) => {
-            const user = userCredentials.user;
-            console.log('User signed in with email:', user.email);
-            setIsAuthenticated(true); // sets to the next page if login is successful
-        })
-        .catch((error) => Alert.alert(error.message));
+        if (!email.trim() || !password) {
+            Alert.alert('Missing fields', 'Please enter your email and password.');
+        return;
+        }
+        setLoading(True);
+        try {
+            await signIn(email.trim() || !password) 
+            router.replace('/tabs');
+            } catch (err) {
+                Alert.alert('Login failed', err.message ?? 'Something went wrong');
+            } finally {
+                setLoading(false);
+            }
     };
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.content}>
-                <Image style={styles.fitnessImage} source={require('../images/mainbg.webp')} />
-                    <Authenticate text="Email Address" />
-                    <Input
-                        placeholder="Type email address here"
-                        value={email}
-                        onChangeText={setEmail}
-                        leftIcon={<Icon name="envelope" size={24} color="white" />}
-                        inputStyle={styles.inputText}
-                        inputContainerStyle={styles.inputContainer}
-                        placeholderTextColor="white"
-                    />
-
-                    <Authenticate text="Password" />           
-                    <Input
-                        placeholder="Type password here"
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry
-                        leftIcon={<Icon name="lock" size={24} color="white" />}
-                        inputStyle={styles.inputText}
-                        inputContainerStyle={styles.inputContainer}
-                        placeholderTextColor="white"
-                    />
-                    <AuthenticateButton onPress={signInUser} title="Login" />
-
-                    <Authenticate text="Don't have an account?" />
-                    <AuthenticateButton onPress={() => navigation.navigate('Sign')} title="Create Account" />
-                        
-                    <Authenticate text="Login with Social Accounts" />
-                    <View style={styles.SocialMedia}>
-                        <SocialIcon type="facebook" />
-                        <SocialIcon type="twitter" />
-                        <SocialIcon type="google" />
+        <ImageBackground
+            source={require('@/assets/images/mainbg.webp')} 
+            style={styles.bg}
+            resizeMode="cover"
+        >
+            <View style={styles.darkOverlay} />
+            <KeyboardAvoidingView
+                style={styles.flex}
+                behavior={Platform.OS == 'ios' ? 'padding' : undefied}
+            >
+                <ScrollView
+                    contentContainerStyle={[
+                        styles.scroll,
+                        { paddingTop: insets.top + webTop + 20, paddingBottom: insets.bottom + webBottom + 40},
+                    ]}
+                    keyboardShouldPersistTaps="handled"
+                    showsVerticalScrollIndicator="false"
+                >                
+                    <TouchOpacity style={styles.backBtn} onPress={() => router.back()}>
+                        <Ionicons name="arrow-back" size={24} color="#00CED1" />           
+                    </TouchOpacity>
+                
+                    <View style={styles.header}>
+                        <Text style={styles.title}>Welcome Back</Text>
+                        <Text style={styles.subtitle}>Sign in to continue training</Text>
                     </View>
-                </View>
-            </ScrollView>
-        </View>
-    );   
-};
+   
+                    <View style={styles.form}>
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Email Address</Text>
+                            <View style={styles.inputRow}>
+                                <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="your@email.com"
+                                    placeholderTextColor="#555"
+                                    value={email}
+                                    onChangeText={setEmail}
+                                    keyboardType="email-address"
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                />
+                            </View>
+                        </View>
 
-export default EntryPage;
+                        <View style={styles.inputGroup}>
+                            <Text style={styles.label}>Password</Text>
+                            <View style={styles.inputRow}>
+                                <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.InputIcon} />
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Your password"
+                                    placeholderTextColor="#555"
+                                    value={password}
+                                    onChangeText={setPassword}
+                                    keyboardType={!showPassword}
+                                    autoCapitalize="none"
+                                />
+                                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeBtn}>
+                                    <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color="888" />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
+                        <TouchableOpacity
+                            style={[styles.primaryBtn, loading && styles.disabled]}
+                            onPress={handleLogin}
+                            disabled={loading}
+                            activeOpacity={0.8}
+                        >
+                            {loading ? (
+                                <ActiveIndicator color="#000" />
+                            ) : (
+                                <Text style={styles.primaryBtnText}>Sign In</Text>
+                            )}
+                        </TouchableOpacity>
+
+                        <View style={styles.divider}>
+                            <View style={styles.dividerLine} />
+                            <Text style={styles.dividerText}>Don't have an account?</Text>
+                            <View style={styles.dividerLine} />
+                        </View>
+
+                        <TouchableOpacity
+                            style={styles.secondaryBtn}
+                            onPress={() => router.replace('/signup')}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={styles.secondaryBtnText}>Create Account</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </ImageBackground>
+    );                          
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#000000',
+    flex: { flex: 1 },
+    bg: { flex: 1, width: '100%', height: '100%' },
+    darkOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.75)',
     },
-    content: {
-        padding: 50,
+    scroll: {
+        flexGrow: 1,
+        paddingHorizontal: 28,
     },
-    fitnessImage: {
-        width: 300, 
-        height: 305,   
-    },
-    inputText: {
-        color: 'white',
-    },
-    inputContainer: {
-        borderBottomWidth: 0, 
-        borderWidth: 2,
-        borderRadius: 100,
-        paddingHorizontal: 10,
-        width: '100%',
-    },
-    SocialMedia: {
-        flexDirection: 'row',
+    backBtn: {
+        width: 40,
+        height: 40,
         justifyContent: 'center',
+        marginBottom: 20,
     },
-});
+    header: {
+        marginBottom: 36,
+    },
+    title: {
+        fontSize: 32,
+        fontWeight: '800',
+        color: '#fff',
+        letterSpacing: -0.5,
+    },
+    subtitle: {
+        fontSize: 15,
+        color: '#888',
+        marginTop: 6,
+    },
+    form: {
+        gap: 16,
+    },
+    inputGroup: {
+        gap: 8,
+    },
+    label: {
+        fontSize: 13,
+        color: '#aaa',
+        fontWeight: '500',
+        letterSpacing: 0.5,
+        textTransform: 'uppercase',
+    },
+    inputRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#1a1a1a',
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#2a2a2a',
+        paddingHorizontal: 14,
+        height: 52,
+    },
+    inputIcon: {
+        marginRight: 10,
+    },
+    input: {
+        flex: 1,
+        color: '#fff',
+        fontSize: 16,
+        height: '100%',
+    },
+    eyeBtn: {
+        padding: 4,
+    },
+    primaryBtn: {
+        backgroundColor: '#00CED1',
+        borderRadius: 14,
+        paddingVertical: 16,
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    disabled: {
+        opacity: 0.6,
+    },
+    primaryBtnText: {
+        color: '#000',
+        fontSize: 17,
+        fontWeight: '700',
+    },
+    divider: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+        marginVertical: 4,
+    },
+    dividerLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#2a2a2a',
+    },
+    dividerText: {
+        color: '#666',
+        fontSize: 13,
+    },
+    secondaryBtn: {
+        backgroundColor: 'transparent',
+        borderRadius: 14,
+        paddingVertical: 16,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#2a2a2a',
+    },
+    secondaryBtnText: {
+        color: '#fff',
+        fontSize: 17,
+        fontWeight: '600',
+    },
+    });

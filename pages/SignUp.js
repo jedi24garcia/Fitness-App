@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, Alert } from 'react-native';
 
 import { DatabaseConnection } from '../database/Database';  // imports the SQLite database connection
