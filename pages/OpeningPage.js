@@ -3,41 +3,73 @@ import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBack
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { addons } from 'react-native';
 
-const { width: screenWidth } = Dimensions.get('window');
+export default function OpeningSreen() {
+    const { user, loading } useAuth();
+    const insets = useSafeAreaInsets ();
+    const titleAnim = useRef(new Animated.Value(0)).current;
+    const subtitleAnim = useRef(new.Animated.Value(0)).current;
+    const buttonAnim = useRef(Animated.value(0)).current;
 
-const OpenPage = ({ navigation }) => {
-    const scrollX = useRef(new Animated.Value(0)).current;
-
-    const handleScrollEnd = (event) => {
-        const contentOffsetX = event.nativeEvent.contentOffset.x;
-        const currentPage = Math.round(contentOffsetX / screenWidth);
-
-        if (currentPage === 1) { 
-            navigation.navigate('Entry');
+// When the app first starts, Firebase (or the authentication system) checks whether the user is
+// already logged in. During this time, "loading" is usually true, so nothing happens.
+    useEffect(() => {
+        if (!loading && user) {
+            router.replace("/(tabs)");
+            return;
         }
-    };
+    // Srart the animations
+        if (!loading && user) {
+            Animated.stagger(150, [
+                Animated.timing(titleAnim, {
+                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 1000, // Changed from "900" but let's see what happens if change to 1000.
+                    useNativeDriver: true,
+                }),
+                Animated.timing(subtitleAnim, {
+                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 800, // Changed from "700" but let's see what happens if change to "800".
+                    useNativeDriver: true,
+                }),
+                Animated.timing(buttonAnim, {
+                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 700, // Changed from "600" but let's see what happens if change to "700".
+                    useNativeDriver: true,
+                }),
+            ]).start();
+        }
+    }, [loading, user]);
+
+    if (loading) { // this checks if Firebase is still checking whether someone is logged in
+    // if yes, instead of showing welcome page, it shows a spinning loading indicator
+        return (
+            <View style={styles.loadingContainer}>
+                <ActivityIndicator size="large" color="#00CED1" />
+            </View>
+        );
+    }
+
+    if (user) return null;
+
+    const webTop = Platform.OS === "web" ? 67 : 0;
+    const webBottom = Platform.OS === "web" ? 34 : 0;
+                    
 
     return (
-        <BackgroundImage source={require('../images/mainbg.webp')}>
-                <ScrollView
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    onScroll={Animated.event (
-                        [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                        { useNativeDriver: false }
-                    )}
-                    scrollEventThrottle={16}
-                    keyExtractor={(item, index) => index.toString()}
-                    onMomentumScrollEnd={handleScrollEnd}
-                >
-                    <View style={styles.page}>
-                        <Text style={styles.introText}>FitnessMate</Text>
-                    </View>
-                    <View style={styles.page} />
-                </ScrollView>
-
+        <BackgroundImage source={require("@/assets/images/mainbg.webp")}
+            style{styles.bg}
+            resizeMode="cover"
+        >
+            <View
+                style={[
+                    styles.overlay,
+                    {
+                        paddingTop: insets.top + webTop,
+                        paddingBottom: insets.bottom + webBottom,
+                    },
+                ]}
+            >
                 <ExpandingDot 
                     data={[1, 2]} 
                     scrollX={scrollX} 
