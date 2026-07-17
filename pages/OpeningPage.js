@@ -3,10 +3,9 @@ import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBack
 import { router } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { addons } from 'react-native';
 
 export default function OpeningSreen() {
-    const { user, loading } useAuth();
+    const { user, loading } = useAuth();
     const insets = useSafeAreaInsets ();
     const titleAnim = useRef(new Animated.Value(0)).current;
     const subtitleAnim = useRef(new.Animated.Value(0)).current;
@@ -57,8 +56,9 @@ export default function OpeningSreen() {
                     
 
     return (
-        <BackgroundImage source={require("@/assets/images/mainbg.webp")}
-            style{styles.bg}
+        <BackgroundImage 
+            source={require("@/assets/images/mainbg.webp")}
+            style={styles.bg}
             resizeMode="cover"
         >
             <View
@@ -70,47 +70,150 @@ export default function OpeningSreen() {
                     },
                 ]}
             >
-                <ExpandingDot 
-                    data={[1, 2]} 
-                    scrollX={scrollX} 
-                    expandingDotWidth={30} 
-                    inActiveDotColor='rgba(255, 255, 255, 0.6)'
-                    dotStyle={{
-                        width: 10,
-                        height: 10,
-                        backgroundColor: '#347af0',
-                        borderRadius: 5,
-                        marginHorizontal: 5,
-                    }}
-                    containerStyle={{
-                        position: 'absolute',
-                        bottom: 30,
-                    }} 
-                />
-        </BackgroundImage>
-    );
-};
+                <View style={styles.heroArea}>
+                    <Animated.Text
+                        style={[
+                            styles.title,
+                            {
+                                opacity: titleAnim,
+                                transform: [
+                                    {
+                                        translateY: subtitleAnim.interpolate({
+                                            inputRange: [0, 1],
+                                            outputRange: [40, 0],
+                                        }),
+                                    },
+                                ],
+                            },
+                        ]}
+                    >
+                        FitnessMate
+                    </Animated.Text>
+                    <Animated.Text
+                        style={[
+                            styles.subtitle,
+                            {
+                                opacity: subtitleAnim,
+                                transform: [
+                                    {
+                                        translateY: subtitleAnim.interpolate({
+                                        inputRange: [0, 1],
+                                        outputRange: [20, 0],
+                                        }),
+                                    },
+                                ],
+                            },
+                        ]}
+                    >
+                        Train Effectively Everywhere
+                    </Animated.Text>
+            </View>
 
-export default OpenPage;
+            <Animated.View
+                style={[
+                    styles.buttoArea,
+                    {
+                        opacity: buttonAnim,
+                        transform: [
+                            {
+                                translateY: buttonAnim.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [30, 0],
+                                }),
+                            },
+                        ],
+                    },
+                ]}
+            >
+                <TouchableOpacity
+                    style={styles.primaryBtn}
+                    onPress={() => router.push("/login")}
+                    activeOpacity={0.9}
+                >
+                    <Text style={styles.primaryBtnText}>Get Started</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.secondaryBtn}
+                    onPress={() => router.push("/signup")}
+                    activeOpacity={0.9}
+                >
+                    <Text style={styles.secondarybtnText}>Create Account</Text>
+                </TouchableOpacity>
+            </Animated.View>
+        </View>
+    </BackgroundImage>
+    );
+}
 
 const styles = StyleSheet.create ({
-    page: {
+    loadingContainer: {
+        flex: 1,
+        backgroundColor: "#0a0a0a",
         justifyContent: 'center',
         alignItems: 'center',
-        width: screenWidth,
     },
-    introText: {
-        marginTop: '100%',
-        fontSize: 30,
-        fontStyle: "italic",
+    bg: {
+        flex: 1,
+        height: "100%",
+        width: "100%",
+    },
+    overlay: {
+        flex: 1,
+        justifyContent: "space-between",
+        backgroundColor: "rgba(0,0,0,0.55",
+        padddingHorizontal: 32,
+    },
+    heroArea: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    title: {
+        fontSize: 48,
         fontWeight: "900",
-        font: "@font/raleway_blackitalic",
-        textAlign: 'center',
-        color: '#00CED1',
+        color: "#00CED1",
+        textAlign: "center",
+        letterSpacing: -1,
+        fontStyle: "italic",
+        textShadowColor: "rgba(0,206,209,0.4)",
+        textShadowOffset: { width: 0, height: 0 },
+        textShadowRadius: 20,
     },
-    fitnessImage: {
-        width: 370,
-        height: 350,
-        borderRadius: 10,  
+    subtitle: {
+        fontSize: 16,
+        color: "rgba(255,255,255,0.75)",
+        textAlign: "center",
+        marginTop: 12,
+        letterSpacing: 1,
+        textTransform: "uppercase",
+    },
+    buttonsArea: {
+        paddingBottom: 50,
+        gap: 12,
+    },
+    primaryBtn: {
+        backgroundColor: "#00CED1",
+        borderRadius: 14,
+        paddingVertical: 16,
+        alignItems: "center",
+    },
+    primaryBtnText: {
+        color: "#000",
+        fontSize: 17,
+        fontWeight: "700",
+        letterSpacing: 0.5,
+    },
+    secondaryBtn: {
+        backgroundColor: "rgba(255,255,255,0.1)",
+        borderRadius: 14,
+        paddingVertical: 16,
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "rgba(255,255,255,0.2)",
+    },
+    secondaryBtnText: {
+        color: "#fff",
+        fontSize: 17,
+        fontWeight: "600",
     },
 });
