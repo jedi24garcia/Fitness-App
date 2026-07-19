@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Platform, ActivityIndicator, KeyboardAvoidingView, ScrollView, ImageBackground } from 'react-native';
 import { router } from 'expo-router';
-import { useAuth } from '../context/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from 'expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // import { SocialIcon, Input } from 'react-native-elements';
 // import Icon from 'react-native-vector-icons/FontAwesome';
@@ -15,7 +15,7 @@ import { Ionicons } from 'expo/vector-icons';
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen() {
-    const { signIn } = useAuth();
+    // const { signIn } = useAuth();
     const insets = useSafeAreaInsets();
     const [ email, setEmail ] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -43,7 +43,7 @@ export default function LoginScreen() {
 
     return (
         <ImageBackground
-            source={require('@/assets/images/mainbg.webp')} 
+            source={require('../images/mainbg.webp')} 
             style={styles.bg}
             resizeMode="cover"
         >

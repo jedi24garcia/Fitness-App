@@ -68,7 +68,7 @@ const App = () => {
           <DrawerNavigator setIsAuthenticated={setIsAuthenticated} /> //  Pass setIsAuthenticated to DrawerNavigator
         ) : (
           <Stack.Navigator initialRouteName='Opening'>
-            <Stack.Screen name="Opening" component={OpenPage} />
+            <Stack.Screen name="Opening" component={OpeningScreen} />
             <Stack.Screen name="Entry">
               {props => <EntryPage {...props} setIsAuthenticated={setIsAuthenticated} />}
             </Stack.Screen>

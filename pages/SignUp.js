@@ -3,9 +3,9 @@ import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Alert,
 
 // import { DatabaseConnection } from '../database/Database';  // imports the SQLite database connection
 import { router } from 'expo-router';
-import { useAuth } from '../context/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Ionicons } from 'expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 // import Authenticate from '../components/AuthenticateText';
 // import AuthenticateButton from '../components/AuthenticateButton';
@@ -15,7 +15,7 @@ import { Ionicons } from 'expo/vector-icons';
 
 export default function SignUpPage() {
     // const db = DatabaseConnection.getConnection();
-    const { signUp } = useAuth();
+    // const { signUp } = useAuth();
         // Lines below are store variables to store user input data
     const insets = useSafeAreaInsets();
     const [name, setName] = React.useState(''); 
@@ -67,7 +67,7 @@ export default function SignUpPage() {
 
     return (
         <ImageBackground
-            source={require('@/assets/images/mainbg.webp')}
+            source={require('../images/mainbg.webp')}
             style={styles.bg}
             resizeModel="cover"
         >

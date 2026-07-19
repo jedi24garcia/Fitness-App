@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as ImagePicker from 'expo-image-picker'; // for function PersonalProfile
-import * as FileSystem from 'expo-file-system'; // to save image to camera roll
+// import * as FileSystem from 'expo-file-system'; // to save image to camera roll
 import * as MediaLibrary from 'expo-media-library'; // to access camera roll
 import { ProgressBar } from 'react-native-paper'; // for function Gamification
 
@@ -113,12 +113,12 @@ const PersonalProfile = () => {
       }
 
       const fileName = uri.split('/').pop(); // Get the file name from the URI
-      const newPath = FileSystem.documentDirectory + fileName; // Define a new path in the local file system
+    //   const newPath = FileSystem.documentDirectory + fileName; // Define a new path in the local file system
 
-      await FileSystem.copyAsync({
-        from: uri,
-        to: newPath,
-      });
+    //   await FileSystem.copyAsync({
+    //     from: uri,
+    //     to: newPath,
+    //   });
 
       // Save image to the camera roll
       await MediaLibrary.saveToLibraryAsync(newPath);

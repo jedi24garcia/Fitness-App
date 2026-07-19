@@ -1,15 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBackground, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
-import { useAuth } from '../context/AuthContext';
+// import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function OpeningSreen() {
-    const { user, loading } = useAuth();
+export default function OpeningScreen() {
+    // const { user, loading } = useAuth();
     const insets = useSafeAreaInsets ();
     const titleAnim = useRef(new Animated.Value(0)).current;
     const subtitleAnim = useRef(new Animated.Value(0)).current;
-    const buttonAnim = useRef(Animated.value(0)).current;
+    const buttonAnim = useRef(new Animated.Value(0)).current;
+    const user = null;
+    const loading = false;
 
 // When the app first starts, Firebase (or the authentication system) checks whether the user is
 // already logged in. During this time, "loading" is usually true, so nothing happens.
@@ -18,7 +20,7 @@ export default function OpeningSreen() {
             router.replace("/(tabs)");
             return;
         }
-    // Srart the animations
+    // Start the animations
         if (!loading && user) {
             Animated.stagger(150, [
                 Animated.timing(titleAnim, {
@@ -56,8 +58,8 @@ export default function OpeningSreen() {
                     
 
     return (
-        <BackgroundImage 
-            source={require("@/assets/images/mainbg.webp")}
+        <ImageBackground 
+            source={require("../images/mainbg.webp")}
             style={styles.bg}
             resizeMode="cover"
         >
@@ -141,7 +143,7 @@ export default function OpeningSreen() {
                 </TouchableOpacity>
             </Animated.View>
         </View>
-    </BackgroundImage>
+    </ImageBackground>
     );
 }
 
