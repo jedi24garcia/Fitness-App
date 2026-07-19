@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import OpenPage from './pages/OpeningPage';
-import EntryPage from './pages/LoginPage';
+import OpeningScreen from './pages/OpeningPage';
+import LoginScreen from './pages/LoginPage';
 import SignUpPage from './pages/SignUp';
 import HomePage from './pages/Home';
 import BodyTarget from './pages/TargetPage';
@@ -19,7 +19,7 @@ const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
 import AuthenticateButton from './components/AuthenticateButton';
 import BackgroundImage from './components/MainBackground';
 
-import { getAuth, signOut } from 'firebase/auth'; // logout functionality from firebase
+// import { getAuth, signOut } from 'firebase/auth'; // logout functionality from firebase
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();

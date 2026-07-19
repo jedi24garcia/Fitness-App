@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Alert,
 
 // import { DatabaseConnection } from '../database/Database';  // imports the SQLite database connection
 import { router } from 'expo-router';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from 'expo/vector-icons';
 

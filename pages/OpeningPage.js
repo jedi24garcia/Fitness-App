@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBackground, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function OpeningSreen() {
     const { user, loading } = useAuth();
     const insets = useSafeAreaInsets ();
     const titleAnim = useRef(new Animated.Value(0)).current;
-    const subtitleAnim = useRef(new.Animated.Value(0)).current;
+    const subtitleAnim = useRef(new Animated.Value(0)).current;
     const buttonAnim = useRef(Animated.value(0)).current;
 
 // When the app first starts, Firebase (or the authentication system) checks whether the user is

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, ScrollView, Platform, KeyboardAvoidingView, ScrollView, ImageBackground, Touchable } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Platform, ActivityIndicator, KeyboardAvoidingView, ScrollView, ImageBackground } from 'react-native';
 import { router } from 'expo-router';
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from 'expo/vector-icons';
 
@@ -22,18 +22,17 @@ export default function LoginScreen() {
     const [loading, setLoading] = React.useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     
-}
     const webTop = Platform.OS === 'web' ? 67 : 0;
     const webBottom = Platform.OS === 'web' ? 34 : 0;
     
-    const signInUser = () => {
+    const signInUser = async () => {
         if (!email.trim() || !password) {
             Alert.alert('Missing fields', 'Please enter your email and password.');
         return;
         }
-        setLoading(True);
+        setLoading(true);
         try {
-            await signIn(email.trim() || !password) 
+            await signIn(email.trim(), password) 
             router.replace('/tabs');
             } catch (err) {
                 Alert.alert('Login failed', err.message ?? 'Something went wrong');
@@ -51,7 +50,7 @@ export default function LoginScreen() {
             <View style={styles.darkOverlay} />
             <KeyboardAvoidingView
                 style={styles.flex}
-                behavior={Platform.OS == 'ios' ? 'padding' : undefied}
+                behavior={Platform.OS == 'ios' ? 'padding' : undefined}
             >
                 <ScrollView
                     contentContainerStyle={[
@@ -81,7 +80,7 @@ export default function LoginScreen() {
                                     placeholderTextColor="#555"
                                     value={email}
                                     onChangeText={setEmail}
-                                    keyboardType="email-address"
+                                    secureTextEntry="email-address"
                                     autoCapitalize="none"
                                     autoCorrect={false}
                                 />
@@ -102,19 +101,19 @@ export default function LoginScreen() {
                                     autoCapitalize="none"
                                 />
                                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeBtn}>
-                                    <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color="888" />
+                                    <Ionicons name={showPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color="#888" />
                                 </TouchableOpacity>
                             </View>
                         </View>
 
                         <TouchableOpacity
                             style={[styles.primaryBtn, loading && styles.disabled]}
-                            onPress={handleLogin}
+                            onPress={signUser}
                             disabled={loading}
                             activeOpacity={0.8}
                         >
                             {loading ? (
-                                <ActiveIndicator color="#000" />
+                                <ActivityIndicator color="#000" />
                             ) : (
                                 <Text style={styles.primaryBtnText}>Sign In</Text>
                             )}
@@ -137,7 +136,8 @@ export default function LoginScreen() {
                 </ScrollView>
             </KeyboardAvoidingView>
         </ImageBackground>
-    );                          
+    );
+}                          
 
 const styles = StyleSheet.create({
     flex: { flex: 1 },
