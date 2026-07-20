@@ -13,6 +13,7 @@ import ArmTraining from './pages/Training/ArmPage';
 import ChestTraining from './pages/Training/ChestPage';
 import CoreTraining from './pages/Training/CorePage';
 import LegTraining from './pages/Training/LegsPage';
+// import EntryPage from './pages/EntryPage';
 
 const B = (props) => <Text style={{fontWeight: 'bold'}}>{props.children}</Text>
 

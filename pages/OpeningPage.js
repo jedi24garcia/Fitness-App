@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { StyleSheet, View, Text, Animated, TouchableOpacity, Platform, ImageBackground, ActivityIndicator } from 'react-native';
-import { router } from 'expo-router';
+// import { router } from 'expo-router';
 // import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export default function OpeningScreen() {
+export default function OpeningScreen({ navigation }) {
     // const { user, loading } = useAuth();
     const insets = useSafeAreaInsets ();
     const titleAnim = useRef(new Animated.Value(0)).current;
@@ -16,31 +16,30 @@ export default function OpeningScreen() {
 // When the app first starts, Firebase (or the authentication system) checks whether the user is
 // already logged in. During this time, "loading" is usually true, so nothing happens.
     useEffect(() => {
-        if (!loading && user) {
-            router.replace("/(tabs)");
-            return;
-        }
+    //     if (!loading && user) {
+    //         navigation.replace("/(tabs)");
+    //         return;
+    //     }
     // Start the animations
-        if (!loading && user) {
+        // if (!loading && !user) {
             Animated.stagger(150, [
                 Animated.timing(titleAnim, {
-                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
-                    duration: 1000, // Changed from "900" but let's see what happens if change to 1000.
+                    toValue: 1, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 900, // Changed from "900" but let's see what happens if change to 1000.
                     useNativeDriver: true,
                 }),
                 Animated.timing(subtitleAnim, {
-                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
-                    duration: 800, // Changed from "700" but let's see what happens if change to "800".
+                    toValue: 1, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 700, // Changed from "700" but let's see what happens if change to "800".
                     useNativeDriver: true,
                 }),
                 Animated.timing(buttonAnim, {
-                    toValue: 2, // Changed from "1" but let's see what happens if change to 2.
-                    duration: 700, // Changed from "600" but let's see what happens if change to "700".
+                    toValue: 1, // Changed from "1" but let's see what happens if change to 2.
+                    duration: 600, // Changed from "600" but let's see what happens if change to "700".
                     useNativeDriver: true,
                 }),
             ]).start();
-        }
-    }, [loading, user]);
+    }, []);
 
     if (loading) { // this checks if Firebase is still checking whether someone is logged in
     // if yes, instead of showing welcome page, it shows a spinning loading indicator
@@ -51,7 +50,7 @@ export default function OpeningScreen() {
         );
     }
 
-    if (user) return null;
+    // if (user) return null;
 
     const webTop = Platform.OS === "web" ? 67 : 0;
     const webBottom = Platform.OS === "web" ? 34 : 0;
@@ -113,7 +112,7 @@ export default function OpeningScreen() {
 
             <Animated.View
                 style={[
-                    styles.buttoArea,
+                    styles.buttonsArea,
                     {
                         opacity: buttonAnim,
                         transform: [
@@ -129,17 +128,17 @@ export default function OpeningScreen() {
             >
                 <TouchableOpacity
                     style={styles.primaryBtn}
-                    onPress={() => router.push("/login")}
+                    onPress={() => navigation.push("Entry")}
                     activeOpacity={0.9}
                 >
                     <Text style={styles.primaryBtnText}>Get Started</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.secondaryBtn}
-                    onPress={() => router.push("/signup")}
+                    onPress={() => navigation.navigate("Sign")}
                     activeOpacity={0.9}
                 >
-                    <Text style={styles.secondarybtnText}>Create Account</Text>
+                    <Text style={styles.secondaryBtnText}>Create Account</Text>
                 </TouchableOpacity>
             </Animated.View>
         </View>
@@ -162,8 +161,8 @@ const styles = StyleSheet.create ({
     overlay: {
         flex: 1,
         justifyContent: "space-between",
-        backgroundColor: "rgba(0,0,0,0.55",
-        padddingHorizontal: 32,
+        backgroundColor: "rgba(0,0,0,0.55)",
+        paddingHorizontal: 32,
     },
     heroArea: {
         flex: 1,
