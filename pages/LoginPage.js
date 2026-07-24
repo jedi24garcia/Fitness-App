@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableOpacity, Alert, Platform, ActivityIndicator, KeyboardAvoidingView, ScrollView, ImageBackground } from 'react-native';
-import { router } from 'expo-router';
+// import { router } from 'expo-router';
 // import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 // import '../Firebaseconfig';
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation, setIsAuthenticated }) {
     // const { signIn } = useAuth();
     const insets = useSafeAreaInsets();
     const [ email, setEmail ] = React.useState('');
@@ -32,13 +32,19 @@ export default function LoginScreen() {
         }
         setLoading(true);
         try {
-            await signIn(email.trim(), password) 
-            router.replace('/tabs');
-            } catch (err) {
-                Alert.alert('Login failed', err.message ?? 'Something went wrong');
-            } finally {
-                setLoading(false);
-            }
+        // Temporary login simulation
+            console.log("Login successful");
+
+            setIsAuthenticated(true);
+
+        } catch (err) {
+            Alert.alert(
+                'Login failed',
+                err.message ?? 'Something went wrong'
+            );
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -58,11 +64,11 @@ export default function LoginScreen() {
                         { paddingTop: insets.top + webTop + 20, paddingBottom: insets.bottom + webBottom + 40},
                     ]}
                     keyboardShouldPersistTaps="handled"
-                    showsVerticalScrollIndicator="false"
+                    showsVerticalScrollIndicator={false}
                 >                
-                    <TouchOpacity style={styles.backBtn} onPress={() => router.back()}>
+                    <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
                         <Ionicons name="arrow-back" size={24} color="#00CED1" />           
-                    </TouchOpacity>
+                    </TouchableOpacity>
                 
                     <View style={styles.header}>
                         <Text style={styles.title}>Welcome Back</Text>
@@ -74,30 +80,30 @@ export default function LoginScreen() {
                             <Text style={styles.label}>Email Address</Text>
                             <View style={styles.inputRow}>
                                 <Ionicons name="mail-outline" size={20} color="#888" style={styles.inputIcon} />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="your@email.com"
-                                    placeholderTextColor="#555"
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    secureTextEntry="email-address"
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                />
+                           <TextInput
+                                style={styles.input}
+                                placeholder="your@email.com"
+                                placeholderTextColor="#555"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                            />
                             </View>
                         </View>
 
                         <View style={styles.inputGroup}>
                             <Text style={styles.label}>Password</Text>
                             <View style={styles.inputRow}>
-                                <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.InputIcon} />
+                                <Ionicons name="lock-closed-outline" size={20} color="#888" style={styles.inputIcon} />
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Your password"
                                     placeholderTextColor="#555"
                                     value={password}
                                     onChangeText={setPassword}
-                                    keyboardType={!showPassword}
+                                    secureTextEntry={!showPassword}
                                     autoCapitalize="none"
                                 />
                                 <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeBtn}>
@@ -108,7 +114,7 @@ export default function LoginScreen() {
 
                         <TouchableOpacity
                             style={[styles.primaryBtn, loading && styles.disabled]}
-                            onPress={signUser}
+                            onPress={signInUser}
                             disabled={loading}
                             activeOpacity={0.8}
                         >
@@ -127,7 +133,7 @@ export default function LoginScreen() {
 
                         <TouchableOpacity
                             style={styles.secondaryBtn}
-                            onPress={() => router.replace('/signup')}
+                            onPress={() => navigation.navigate("Sign")}
                             activeOpacity={0.8}
                         >
                             <Text style={styles.secondaryBtnText}>Create Account</Text>

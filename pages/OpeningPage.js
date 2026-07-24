@@ -128,7 +128,7 @@ export default function OpeningScreen({ navigation }) {
             >
                 <TouchableOpacity
                     style={styles.primaryBtn}
-                    onPress={() => navigation.push("Entry")}
+                    onPress={() => navigation.navigate("Login")}
                     activeOpacity={0.9}
                 >
                     <Text style={styles.primaryBtnText}>Get Started</Text>

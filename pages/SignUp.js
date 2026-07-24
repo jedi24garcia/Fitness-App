@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput, ScrollView, TouchableOpacity, Alert, Platform, KeyboardAvoidingView, ImageBackground, ActivityIndicator } from 'react-native';
 
 // import { DatabaseConnection } from '../database/Database';  // imports the SQLite database connection
-import { router } from 'expo-router';
+// import { router } from 'expo-router';
 // import { useAuth } from '../contexts/AuthContext';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,7 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 // import '../Firebaseconfig';
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"; // This is the Firebase Authentication functions
 
-export default function SignUpPage() {
+export default function SignUpPage({ navigation }) {
     // const db = DatabaseConnection.getConnection();
     // const { signUp } = useAuth();
         // Lines below are store variables to store user input data
@@ -50,7 +50,7 @@ export default function SignUpPage() {
             Alert.alert('Password mismatch', 'Passwords do not match.');
             return;
         }
-        if (password.length > 6) {
+        if (password.length < 6) {
             Alert.alert('Weak password', 'Password must be at least 6 characters long.');
             return
         }
@@ -84,7 +84,7 @@ export default function SignUpPage() {
                     keyboardShouldPersistTaps="handled"
                     showsVerticalScrollIndicator={false}
                 >
-                    <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
+                    <TouchableOpacity style={styles.backBtn} onPress={() => navigation.goBack()}>
                         <Ionicons name="arrow-back" size={24} color="#00CED1" />
                     </TouchableOpacity>
 
@@ -98,7 +98,7 @@ export default function SignUpPage() {
                             { label: 'Full Name', icon: 'person-outline', value: name, setter: setName, placeholder: 'Your name', keyboard: 'default', secure: false, cap: 'words' },
                             { label: 'Email Address', icon: 'mail-outline', value: email, setter: setEmail, placeholder: 'your@email.com', keyboard: 'email-address', secure: false, cap: 'none' },
                             { label: 'Password', icon: 'lock-closed-outline', value: password, setter: setPassword, placeholder: 'At least 6 characters', keyboard: 'default', secure: true, cap: 'none' },
-                            { label: 'Confirm Password', icon: 'shield-checkmark-outline', value: confirmPassword, setter: setConfirm, placeholder: 'Repeat your password', keyboard: 'default', secure: true, cap: 'none' },
+                            { label: 'Confirm Password', icon: 'shield-checkmark-outline', value: confirmPassword, setter: setConfirmPassword, placeholder: 'Repeat your password', keyboard: 'default', secure: true, cap: 'none' },
                         ].map((field) => (
                             <View style={styles.inputGroup} key={field.label}>
                                 <Text style={styles.label}>{field.label}</Text>
@@ -140,7 +140,7 @@ export default function SignUpPage() {
 
                         <TouchableOpacity
                             style={styles.secondaryBtn}
-                            onPress={() => router.replace('/login')}
+                            onPress={() => navigation.navigate("Login")}
                             activeOpacity={0.8}
                         >
                             <Text style={styles.secondaryBtnText}>Sign in</Text>
